@@ -1,0 +1,17 @@
+{
+	"name": "wpi",
+	"image": "mcr.microsoft.com/devcontainers/dotnet",
+	"runArgs": [
+		"--add-host",
+		"host.docker.internal:host-gateway"
+	],
+	"extensions": [
+		"editorconfig.editorconfig",
+		"ms-dotnettools.csharp",
+		"ms-dotnettools.csdevkit",
+		"cweijan.vscode-mysql-client2"
+	],
+	"settings": {
+		"editor.formatOnSave": true
+	}
+}
