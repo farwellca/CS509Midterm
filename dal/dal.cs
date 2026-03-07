@@ -23,4 +23,34 @@ public static class Dal
         return dt;
     }
 
+    public static DataTable GetLoginInfo()
+    {
+        var dt = new DataTable();
+        using (var connection = new MySqlConnection(connectionString))
+        {
+            connection.Open();
+            using (var da = new MySqlDataAdapter(@"select Username,Pin from Users;", connection))
+            {
+                da.Fill(dt);
+            }
+        }
+
+        return dt;
+    }
+
+    public static DataTable GetUserType(string username, string pin)
+    {
+        var dt = new DataTable();
+        using (var connection = new MySqlConnection(connectionString))
+        {
+            connection.Open();
+            using (var da = new MySqlDataAdapter(@"select Type from Users where Username='" + username + "'and Pin='" + pin + "';", connection))
+            {
+                da.Fill(dt);
+            }
+        }
+
+        return dt;
+    }
+
 }
