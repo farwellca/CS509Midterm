@@ -23,4 +23,11 @@ public static class AdminModel
 
         return output;
     }
+
+    public static void ShowAdminMenu()
+    {
+        Console.WriteLine("You have logged in as an admin!");
+    }
+
+
 }
