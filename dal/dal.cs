@@ -1,4 +1,5 @@
 ﻿using System.Data;
+using System.Net;
 using System.Net.NetworkInformation;
 using MySql.Data.MySqlClient;
 
@@ -66,6 +67,24 @@ public static class Dal
         }
 
         return dt;
+    }
+
+    public static int UpdateBalance(int id, int balance)
+    {
+        int changed;
+
+        using var connection = new MySqlConnection(connectionString);
+        connection.Open();
+
+        using var command = new MySqlCommand(@"update Accounts 
+                                                set Balance = @Balance
+                                                where Accounts.AccountNum = @actNum;", connection);
+        command.Parameters.AddWithValue("@Balance", balance);
+        command.Parameters.AddWithValue("@actNum", id);
+
+        changed = command.ExecuteNonQuery();
+
+        return changed;
     }
 
 }

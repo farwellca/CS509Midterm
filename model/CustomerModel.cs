@@ -6,6 +6,7 @@ using System.Data;
 using Microsoft.VisualBasic;
 using System.Threading.Tasks.Dataflow;
 using System.ComponentModel;
+using System.Diagnostics.Contracts;
 
 public static class CustomerModel
 {
@@ -43,12 +44,10 @@ public static class CustomerModel
             switch (input)
             {
                 case "1":
-                    Console.Clear();
-                    Console.WriteLine("Withdrawing cash.");
+                    withdrawCash(custAccount);
                     break;
                 case "2":
-                    Console.Clear();
-                    Console.WriteLine("Depositing cash.");
+                    depositCash(custAccount);
                     break;
                 case "3":
                     displayBalance(custAccount);
@@ -64,6 +63,92 @@ public static class CustomerModel
                     break;
 
             }
+        }
+    }
+
+    private static void withdrawCash(Account a)
+    {
+        Console.Clear();
+
+        bool validAmt = false;
+        while (!validAmt)
+        {
+            Console.Write("Enter the withdrawl amount: ");
+            String strAmount = Console.ReadLine();
+            int amount;
+
+            if (!int.TryParse(strAmount, out amount))
+            {
+                Console.WriteLine("That is not a valid number. Pleaase try again.");
+            }
+            else if (amount < 0)
+            {
+                Console.WriteLine("Enter a number greater than 0. Pleaase try again.");
+            }
+            else if (amount > a.Balance)
+            {
+                Console.WriteLine("Enter a number less than your balance. Pleaase try again.");
+            }
+            else
+            {
+                validAmt = true;
+
+                a.Balance -= amount;
+
+                Dal.UpdateBalance(a.AccountNum, a.Balance);
+
+                Console.WriteLine("Cash Successfully Withdrawn.");
+                Console.WriteLine("Account #" + a.AccountNum);
+                Console.WriteLine("Date: " + DateTime.Now.ToString("M/d/yyyy"));
+                Console.WriteLine("Withdrawn: " + amount);
+                Console.WriteLine("Balance: " + a.Balance);
+
+                Console.WriteLine("Press any key to continue.");
+                Console.ReadKey(true);
+                Console.Clear();
+            }
+
+        }
+    }
+
+    private static void depositCash(Account a)
+    {
+        Console.Clear();
+
+        bool validAmt = false;
+        while (!validAmt)
+        {
+            Console.Write("Enter the cash amount to deposit: ");
+            String strAmount = Console.ReadLine();
+            int amount;
+
+            if (!int.TryParse(strAmount, out amount))
+            {
+                Console.WriteLine("That is not a valid number. Pleaase try again.");
+            }
+            else if (amount < 0)
+            {
+                Console.WriteLine("Enter a number greater than 0. Pleaase try again.");
+            }
+            else
+            {
+                validAmt = true;
+
+                a.Balance += amount;
+
+                Dal.UpdateBalance(a.AccountNum, a.Balance);
+
+                Console.WriteLine("Cash Deposited Successfully.");
+                Console.WriteLine("Account #" + a.AccountNum);
+                Console.WriteLine("Date: " + DateTime.Now.ToString("M/d/yyyy"));
+                Console.WriteLine("Deposited: " + amount);
+                Console.WriteLine("Balance: " + a.Balance);
+
+                Console.WriteLine("Press any key to continue.");
+                Console.ReadKey(true);
+                Console.Clear();
+            }
+
         }
     }
 
