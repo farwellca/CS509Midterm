@@ -27,7 +27,7 @@ while (!loggedIn)
         switch (LoginModel.getUserType(username, pin))
         {
             case "Customer":
-                CustomerModel.ShowCustomerMenu();
+                CustomerModel.ShowCustomerMenu(username, pin);
                 break;
             case "Admin":
                 AdminModel.ShowAdminMenu();
