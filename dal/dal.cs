@@ -53,4 +53,19 @@ public static class Dal
         return dt;
     }
 
+    public static DataTable GetCustAccount(string username, string pin)
+    {
+        var dt = new DataTable();
+        using (var connection = new MySqlConnection(connectionString))
+        {
+            connection.Open();
+            using (var da = new MySqlDataAdapter(@"select * from Users join Accounts on Users.ID = Accounts.AccountNum where Username='" + username + "'and Pin='" + pin + "';", connection))
+            {
+                da.Fill(dt);
+            }
+        }
+
+        return dt;
+    }
+
 }
