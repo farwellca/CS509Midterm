@@ -49,6 +49,7 @@ public static class AdminModel
                     break;
                 case "4":
                     Console.WriteLine("Search Account");
+                    searchAccount();
                     break;
                 case "5":
                     Console.Clear();
@@ -60,6 +61,57 @@ public static class AdminModel
                     Console.WriteLine("Invalid input. Please try again.");
                     break;
 
+            }
+        }
+    }
+
+    private static void searchAccount()
+    {
+        int act;
+        bool valid = false;
+
+        while (!valid)
+        {
+            Console.Write("Enter the Account Number: ");
+            string strNum = Console.ReadLine();
+
+            if (!int.TryParse(strNum, out act))
+            {
+                Console.WriteLine("That is not a valid number. Pleaase try again.");
+            }
+            else if (act < 0)
+            {
+                Console.WriteLine("Enter a number greater than 0. Pleaase try again.");
+            }
+            else
+            {
+                valid = true;
+                var dt = Dal.GetCustAccountByID(act);
+
+                if (dt.Rows.Count < 1)
+                {
+                    Console.Clear();
+                    Console.WriteLine("No customer account found under that number.");
+
+                    Console.WriteLine("Press any key to continue.");
+                    Console.ReadKey(true);
+                    Console.Clear();
+                }
+                else
+                {
+                    Console.Clear();
+                    Console.WriteLine("The account information is:");
+                    Console.WriteLine("Account # " + dt.Rows[0]["ID"]);
+                    Console.WriteLine("Holder: " + dt.Rows[0]["Holder"]);
+                    Console.WriteLine("Balance: " + dt.Rows[0]["Balance"]);
+                    Console.WriteLine("Status: " + dt.Rows[0]["Status"]);
+                    Console.WriteLine("Login: " + dt.Rows[0]["Username"]);
+                    Console.WriteLine("Pin: " + dt.Rows[0]["Pin"]);
+
+                    Console.WriteLine("Press any key to continue.");
+                    Console.ReadKey(true);
+                    Console.Clear();
+                }
             }
         }
     }

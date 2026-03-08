@@ -69,6 +69,21 @@ public static class Dal
         return dt;
     }
 
+    public static DataTable GetCustAccountByID(int actNum)
+    {
+        var dt = new DataTable();
+        using (var connection = new MySqlConnection(connectionString))
+        {
+            connection.Open();
+            using (var da = new MySqlDataAdapter(@"select * from Users join Accounts on Users.ID = Accounts.AccountNum where Users.ID=" + actNum + ";", connection))
+            {
+                da.Fill(dt);
+            }
+        }
+
+        return dt;
+    }
+
     public static int UpdateBalance(int id, int balance)
     {
         int changed;
