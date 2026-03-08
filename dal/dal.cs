@@ -113,4 +113,44 @@ public static class Dal
         return command.ExecuteNonQuery();
     }
 
+    public static DataTable GetUsernames()
+    {
+        var dt = new DataTable();
+        using (var connection = new MySqlConnection(connectionString))
+        {
+            connection.Open();
+            using (var da = new MySqlDataAdapter(@"select Username from Users;", connection))
+            {
+                da.Fill(dt);
+            }
+        }
+
+        return dt;
+    }
+
+    public static int CreateAccount(string login, string pin, string holder, int balance, string status)
+    {
+        using var connection = new MySqlConnection(connectionString);
+        connection.Open();
+
+        using var command = new MySqlCommand(@"insert into Users (Username, Pin, Type) values (@Username, @Pin, @Type);", connection);
+        command.Parameters.AddWithValue("@Username", login);
+        command.Parameters.AddWithValue("@Pin", pin);
+        command.Parameters.AddWithValue("@Type", "Customer");
+
+        command.ExecuteNonQuery();
+
+        int lastID = (int)command.LastInsertedId;
+
+        using var command2 = new MySqlCommand(@"insert into Accounts values (@Id, @Holder, @Balance, @Status);", connection);
+        command2.Parameters.AddWithValue("@Id", lastID);
+        command2.Parameters.AddWithValue("@Holder", holder);
+        command2.Parameters.AddWithValue("@Balance", balance);
+        command2.Parameters.AddWithValue("@Status", status);
+
+        command2.ExecuteNonQuery();
+
+        return lastID;
+    }
+
 }

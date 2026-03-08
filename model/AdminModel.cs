@@ -5,6 +5,7 @@ using dal;
 using System.Data;
 using Microsoft.VisualBasic;
 using System.Threading.Tasks.Dataflow;
+using System.ComponentModel;
 
 public static class AdminModel
 {
@@ -39,7 +40,7 @@ public static class AdminModel
             switch (input)
             {
                 case "1":
-                    Console.WriteLine("Create Account");
+                    createAccount();
                     break;
                 case "2":
                     deleteAccount();
@@ -64,6 +65,104 @@ public static class AdminModel
         }
     }
 
+    private static void createAccount()
+    {
+        string login;
+        string pin;
+        string holder;
+        int balance;
+        string status;
+
+        Console.Clear();
+        Console.WriteLine("Create new Account");
+        Console.Write("Login: ");
+        login = Console.ReadLine();
+
+        while (!validUsername(login) || login.Length == 0)
+        {
+            if (login.Length == 0)
+            {
+                Console.WriteLine("Username can not be blank.");
+            }
+            else
+            {
+                Console.WriteLine("That username is already taken. Please pick another.");
+            }
+            Console.Write("Login: ");
+            login = Console.ReadLine();
+        }
+
+        Console.Write("Pin: ");
+        pin = Console.ReadLine();
+        while (!validPin(pin))
+        {
+            Console.WriteLine("That pin is invalid. Please ensure it is a 5 digit integer.");
+            Console.Write("Pin: ");
+            pin = Console.ReadLine();
+        }
+
+        Console.Write("Holder's Name: ");
+        holder = Console.ReadLine();
+        while (holder.Length == 0)
+        {
+            Console.WriteLine("Holder name can not be blank.");
+            Console.Write("Holder: ");
+            holder = Console.ReadLine();
+        }
+
+        Console.Write("Starting Balance: ");
+        string balStr = Console.ReadLine();
+
+        while (!int.TryParse(balStr, out balance) || balance < 0)
+        {
+            Console.WriteLine("Starting balance must be a positive number.");
+            Console.Write("Starting Balance: ");
+            balStr = Console.ReadLine();
+        }
+
+        Console.Write("Status: ");
+        status = Console.ReadLine();
+        while (status.Length == 0)
+        {
+            Console.WriteLine("Status can not be blank.");
+            Console.Write("Status: ");
+            status = Console.ReadLine();
+        }
+
+        int newNum = Dal.CreateAccount(login, pin, holder, balance, status);
+        Console.WriteLine("Account Successfully Created - the account number assigned is: " + newNum);
+
+        Console.WriteLine("Press any key to continue.");
+        Console.ReadKey(true);
+        Console.Clear();
+
+    }
+
+    private static bool validUsername(string login)
+    {
+        var dt = Dal.GetUsernames();
+
+        foreach (DataRow r in dt.Rows)
+        {
+            if ((string)r["Username"] == login)
+            {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    private static bool validPin(string pin)
+    {
+        if (!int.TryParse(pin, out int i) || pin.Length != 5)
+        {
+            return false;
+        }
+
+        return true;
+    }
+
     private static void deleteAccount()
     {
         int act;
@@ -71,7 +170,6 @@ public static class AdminModel
 
         while (!valid)
         {
-            Console.Clear();
             Console.Write("Enter the account number to which you want to delete: ");
             string strNum = Console.ReadLine();
 
@@ -90,7 +188,6 @@ public static class AdminModel
 
                 if (dt.Rows.Count < 1)
                 {
-                    Console.Clear();
                     Console.WriteLine("No customer account found under that number.");
 
                     Console.WriteLine("Press any key to continue.");
