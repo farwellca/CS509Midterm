@@ -79,15 +79,15 @@ public static class CustomerModel
 
             if (!int.TryParse(strAmount, out amount))
             {
-                Console.WriteLine("That is not a valid number. Pleaase try again.");
+                Console.WriteLine("That is not a valid number. Please try again.");
             }
             else if (amount < 0)
             {
-                Console.WriteLine("Enter a number greater than 0. Pleaase try again.");
+                Console.WriteLine("Enter a number greater than 0. Please try again.");
             }
             else if (amount > a.Balance)
             {
-                Console.WriteLine("Enter a number less than your balance. Pleaase try again.");
+                Console.WriteLine("Enter a number less than your balance. Please try again.");
             }
             else
             {
@@ -124,11 +124,11 @@ public static class CustomerModel
 
             if (!int.TryParse(strAmount, out amount))
             {
-                Console.WriteLine("That is not a valid number. Pleaase try again.");
+                Console.WriteLine("That is not a valid number. Please try again.");
             }
             else if (amount < 0)
             {
-                Console.WriteLine("Enter a number greater than 0. Pleaase try again.");
+                Console.WriteLine("Enter a number greater than 0. Please try again.");
             }
             else
             {

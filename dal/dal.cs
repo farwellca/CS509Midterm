@@ -102,4 +102,15 @@ public static class Dal
         return changed;
     }
 
+    public static int DeleteAccount(int account)
+    {
+        using var connection = new MySqlConnection(connectionString);
+        connection.Open();
+
+        using var command = new MySqlCommand(@"delete from Users where Users.ID = @id;", connection);
+        command.Parameters.AddWithValue("@Id", account);
+
+        return command.ExecuteNonQuery();
+    }
+
 }

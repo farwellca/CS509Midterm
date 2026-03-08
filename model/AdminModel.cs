@@ -42,13 +42,12 @@ public static class AdminModel
                     Console.WriteLine("Create Account");
                     break;
                 case "2":
-                    Console.WriteLine("Delete Account");
+                    deleteAccount();
                     break;
                 case "3":
                     Console.WriteLine("Update Account");
                     break;
                 case "4":
-                    Console.WriteLine("Search Account");
                     searchAccount();
                     break;
                 case "5":
@@ -60,6 +59,69 @@ public static class AdminModel
                     Console.Clear();
                     Console.WriteLine("Invalid input. Please try again.");
                     break;
+
+            }
+        }
+    }
+
+    private static void deleteAccount()
+    {
+        int act;
+        bool valid = false;
+
+        while (!valid)
+        {
+            Console.Clear();
+            Console.Write("Enter the account number to which you want to delete: ");
+            string strNum = Console.ReadLine();
+
+            if (!int.TryParse(strNum, out act))
+            {
+                Console.WriteLine("That is not a valid number. Please try again.");
+            }
+            else if (act < 0)
+            {
+                Console.WriteLine("Enter a number greater than 0. Please try again.");
+            }
+            else
+            {
+                valid = true;
+                var dt = Dal.GetCustAccountByID(act);
+
+                if (dt.Rows.Count < 1)
+                {
+                    Console.Clear();
+                    Console.WriteLine("No customer account found under that number.");
+
+                    Console.WriteLine("Press any key to continue.");
+                    Console.ReadKey(true);
+                    Console.Clear();
+                }
+                else
+                {
+                    bool matching = false;
+
+                    while (!matching)
+                    {
+                        Console.Write("You wish to delete the account held by " + dt.Rows[0]["Holder"] + ". If this information is correct, please re-enter the account number: ");
+                        string strNum2 = Console.ReadLine();
+                        if (strNum != strNum2)
+                        {
+                            Console.WriteLine("That number does not match the first, please try again.");
+                        }
+                        else
+                        {
+                            matching = true;
+                            Console.WriteLine("Account Deleted Successfully");
+
+                            Dal.DeleteAccount(act);
+
+                            Console.WriteLine("Press any key to continue.");
+                            Console.ReadKey(true);
+                            Console.Clear();
+                        }
+                    }
+                }
 
             }
         }
@@ -77,11 +139,11 @@ public static class AdminModel
 
             if (!int.TryParse(strNum, out act))
             {
-                Console.WriteLine("That is not a valid number. Pleaase try again.");
+                Console.WriteLine("That is not a valid number. Please try again.");
             }
             else if (act < 0)
             {
-                Console.WriteLine("Enter a number greater than 0. Pleaase try again.");
+                Console.WriteLine("Enter a number greater than 0. Please try again.");
             }
             else
             {
