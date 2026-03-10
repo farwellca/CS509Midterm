@@ -3,12 +3,6 @@
 using System.Transactions;
 using model;
 
-Console.WriteLine("Hello, World!");
-
-Console.WriteLine(AdminModel.GetAll());
-
-
-
 bool loggedIn = false;
 
 while (!loggedIn)
@@ -22,7 +16,6 @@ while (!loggedIn)
     if (LoginModel.Login(username, pin))
     {
         Console.WriteLine("Success!");
-        //Console.WriteLine(LoginModel.getUserType(username, pin));
 
         switch (LoginModel.getUserType(username, pin))
         {
