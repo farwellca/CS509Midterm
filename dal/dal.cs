@@ -153,4 +153,36 @@ public static class Dal
         return lastID;
     }
 
+    public static int UpdateAccount(DataTable dt)
+    {
+        int changed;
+
+        using var connection = new MySqlConnection(connectionString);
+        connection.Open();
+
+        using var command = new MySqlCommand(@"update Users 
+                                                set Username = @Username,
+                                                    Pin = @Pin
+                                                where Users.ID = @Id;", connection);
+        command.Parameters.AddWithValue("@Id", dt.Rows[0]["ID"]);
+        command.Parameters.AddWithValue("@Username", dt.Rows[0]["Username"]);
+        command.Parameters.AddWithValue("@Pin", dt.Rows[0]["Pin"]);
+
+        changed = command.ExecuteNonQuery();
+
+        using var command2 = new MySqlCommand(@"update Accounts 
+                                                set Holder = @Holder,
+                                                    Status = @Status
+                                                where Accounts.AccountNum = @Id;", connection);
+        command2.Parameters.AddWithValue("@Holder", dt.Rows[0]["Holder"]);
+        command2.Parameters.AddWithValue("@Status", dt.Rows[0]["Status"]);
+        command2.Parameters.AddWithValue("@Id", dt.Rows[0]["ID"]);
+
+
+
+        changed += command2.ExecuteNonQuery();
+
+        return changed;
+    }
+
 }

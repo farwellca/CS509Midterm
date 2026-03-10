@@ -46,7 +46,7 @@ public static class AdminModel
                     deleteAccount();
                     break;
                 case "3":
-                    Console.WriteLine("Update Account");
+                    updateAccount();
                     break;
                 case "4":
                     searchAccount();
@@ -155,7 +155,13 @@ public static class AdminModel
 
     private static bool validPin(string pin)
     {
-        if (!int.TryParse(pin, out int i) || pin.Length != 5)
+        int i;
+
+        if (!int.TryParse(pin, out i) || pin.Length != 5)
+        {
+            return false;
+        }
+        else if (i < 0)
         {
             return false;
         }
@@ -224,6 +230,123 @@ public static class AdminModel
         }
     }
 
+    private static void updateAccount()
+    {
+        int act;
+        bool valid = false;
+
+        while (!valid)
+        {
+            Console.Write("Enter the account number to which you want to update: ");
+            string strNum = Console.ReadLine();
+
+            if (!int.TryParse(strNum, out act))
+            {
+                Console.WriteLine("That is not a valid number. Please try again.");
+            }
+            else if (act < 0)
+            {
+                Console.WriteLine("Enter a number greater than 0. Please try again.");
+            }
+            else
+            {
+                valid = true;
+                var dt = Dal.GetCustAccountByID(act);
+
+                if (dt.Rows.Count < 1)
+                {
+                    Console.WriteLine("No customer account found under that number.");
+
+                    Console.WriteLine("Press any key to continue.");
+                    Console.ReadKey(true);
+                    Console.Clear();
+                }
+                else
+                {
+                    Console.WriteLine();
+
+                    displayAccount(dt);
+
+                    string newHolder, newStatus, newLogin, newPin;
+
+                    Console.WriteLine("\nEnter the new information or leave blank to keep the old.");
+
+                    Console.Write("Holder: ");
+                    newHolder = Console.ReadLine();
+
+                    if (newHolder.Length == 0)
+                    {
+                        newHolder = (string)dt.Rows[0]["Holder"];
+                    }
+
+                    Console.Write("Status: ");
+                    newStatus = Console.ReadLine();
+
+                    if (newStatus.Length == 0)
+                    {
+                        newStatus = (string)dt.Rows[0]["Status"];
+                    }
+
+                    bool validLogin = false;
+                    Console.Write("Login: ");
+                    newLogin = Console.ReadLine();
+
+                    while (!validLogin)
+                    {
+
+                        if (newLogin.Length == 0 || newLogin == (string)dt.Rows[0]["Username"])
+                        {
+                            newLogin = (string)dt.Rows[0]["Username"];
+                            validLogin = true;
+                        }
+                        else if (!validUsername(newLogin))
+                        {
+                            Console.WriteLine("That username is already taken. Please pick another.");
+                            Console.Write("Login: ");
+                            newLogin = Console.ReadLine();
+                        }
+                        else
+                        {
+                            validLogin = true;
+                        }
+                    }
+
+                    Console.Write("Pin Code: ");
+                    newPin = Console.ReadLine();
+
+                    while (!validPin(newPin) && !(newPin.Length == 0))
+                    {
+                        Console.WriteLine("That pin is invalid. Please ensure it is a 5 digit integer.");
+                        Console.Write("Pin Code: ");
+                        newPin = Console.ReadLine();
+                    }
+
+                    if (newPin.Length == 0)
+                    {
+                        newPin = (string)dt.Rows[0]["Pin"];
+                    }
+
+
+                    dt.Rows[0]["Holder"] = newHolder;
+                    dt.Rows[0]["Status"] = newStatus;
+                    dt.Rows[0]["Username"] = newLogin;
+                    dt.Rows[0]["Pin"] = newPin;
+
+                    Console.WriteLine("\nAccount updated.");
+                    displayAccount(dt);
+
+                    Dal.UpdateAccount(dt);
+
+
+                    Console.WriteLine("Press any key to continue.");
+                    Console.ReadKey(true);
+                    Console.Clear();
+                }
+
+            }
+        }
+    }
+
     private static void searchAccount()
     {
         int act;
@@ -259,13 +382,8 @@ public static class AdminModel
                 else
                 {
                     Console.Clear();
-                    Console.WriteLine("The account information is:");
-                    Console.WriteLine("Account # " + dt.Rows[0]["ID"]);
-                    Console.WriteLine("Holder: " + dt.Rows[0]["Holder"]);
-                    Console.WriteLine("Balance: " + dt.Rows[0]["Balance"]);
-                    Console.WriteLine("Status: " + dt.Rows[0]["Status"]);
-                    Console.WriteLine("Login: " + dt.Rows[0]["Username"]);
-                    Console.WriteLine("Pin: " + dt.Rows[0]["Pin"]);
+
+                    displayAccount(dt);
 
                     Console.WriteLine("Press any key to continue.");
                     Console.ReadKey(true);
@@ -275,5 +393,14 @@ public static class AdminModel
         }
     }
 
-
+    private static void displayAccount(DataTable dt)
+    {
+        Console.WriteLine("The account information is:");
+        Console.WriteLine("Account # " + dt.Rows[0]["ID"]);
+        Console.WriteLine("Holder: " + dt.Rows[0]["Holder"]);
+        Console.WriteLine("Balance: " + dt.Rows[0]["Balance"]);
+        Console.WriteLine("Status: " + dt.Rows[0]["Status"]);
+        Console.WriteLine("Login: " + dt.Rows[0]["Username"]);
+        Console.WriteLine("Pin: " + dt.Rows[0]["Pin"]);
+    }
 }
