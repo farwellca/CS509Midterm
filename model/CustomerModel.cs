@@ -22,7 +22,6 @@ public static class CustomerModel
     public static void ShowCustomerMenu(string username, string pin)
     {
         Console.Clear();
-        Console.WriteLine("You have logged in as a customer!");
 
         bool done = false;
 

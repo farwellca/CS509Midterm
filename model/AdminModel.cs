@@ -33,7 +33,7 @@ public static class AdminModel
 
         while (!done)
         {
-            Console.WriteLine("\n1--Create New Account\n2--Delete Exicting Accont\n3--Update Account Information\n4--Search for Account\n5--Exit");
+            Console.WriteLine("\n1--Create New Account\n2--Delete Existing Accont\n3--Update Account Information\n4--Search for Account\n5--Exit");
 
             string? input = Console.ReadLine();
 
@@ -74,7 +74,7 @@ public static class AdminModel
         string status;
 
         Console.Clear();
-        Console.WriteLine("Create new Account");
+        Console.WriteLine("Create New Account");
         Console.Write("Login: ");
         login = Console.ReadLine();
 
