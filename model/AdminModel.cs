@@ -33,34 +33,41 @@ public static class AdminModel
 
         while (!done)
         {
-            Console.WriteLine("\n1--Create New Account\n2--Delete Existing Accont\n3--Update Account Information\n4--Search for Account\n5--Exit");
-
-            string? input = Console.ReadLine();
-
-            switch (input)
+            try
             {
-                case "1":
-                    createAccount();
-                    break;
-                case "2":
-                    deleteAccount();
-                    break;
-                case "3":
-                    updateAccount();
-                    break;
-                case "4":
-                    searchAccount();
-                    break;
-                case "5":
-                    Console.Clear();
-                    Console.WriteLine("Have a nice day.");
-                    done = true;
-                    break;
-                default:
-                    Console.Clear();
-                    Console.WriteLine("Invalid input. Please try again.");
-                    break;
+                Console.WriteLine("\n1--Create New Account\n2--Delete Existing Accont\n3--Update Account Information\n4--Search for Account\n5--Exit");
 
+                string? input = Console.ReadLine();
+
+                switch (input)
+                {
+                    case "1":
+                        createAccount();
+                        break;
+                    case "2":
+                        deleteAccount();
+                        break;
+                    case "3":
+                        updateAccount();
+                        break;
+                    case "4":
+                        searchAccount();
+                        break;
+                    case "5":
+                        Console.Clear();
+                        Console.WriteLine("Have a nice day.");
+                        done = true;
+                        break;
+                    default:
+                        Console.Clear();
+                        Console.WriteLine("Invalid input. Please try again.");
+                        break;
+
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
             }
         }
     }
@@ -78,55 +85,45 @@ public static class AdminModel
         Console.Write("Login: ");
         login = Console.ReadLine();
 
-        while (!validUsername(login) || login.Length == 0)
+        if (!validUsername(login) || login.Length == 0)
         {
             if (login.Length == 0)
             {
-                Console.WriteLine("Username can not be blank.");
+                throw new ArgumentException("Error. Username can not be blank.");
             }
             else
             {
-                Console.WriteLine("That username is already taken. Please pick another.");
+                throw new ArgumentException("Error. Username already taken.");
             }
-            Console.Write("Login: ");
-            login = Console.ReadLine();
         }
 
         Console.Write("Pin: ");
         pin = Console.ReadLine();
-        while (!validPin(pin))
+        if (!validPin(pin))
         {
-            Console.WriteLine("That pin is invalid. Please ensure it is a 5 digit integer.");
-            Console.Write("Pin: ");
-            pin = Console.ReadLine();
+            throw new ArgumentException("Error. That pin is invalid. Please ensure it is a 5 digit integer.");
         }
 
         Console.Write("Holder's Name: ");
         holder = Console.ReadLine();
-        while (holder.Length == 0)
+        if (holder.Length == 0)
         {
-            Console.WriteLine("Holder name can not be blank.");
-            Console.Write("Holder: ");
-            holder = Console.ReadLine();
+            throw new ArgumentException("Error. Holder's Name can not be blank.");
         }
 
         Console.Write("Starting Balance: ");
         string balStr = Console.ReadLine();
 
-        while (!int.TryParse(balStr, out balance) || balance < 0)
+        if (!int.TryParse(balStr, out balance) || balance < 0)
         {
-            Console.WriteLine("Starting balance must be a positive number.");
-            Console.Write("Starting Balance: ");
-            balStr = Console.ReadLine();
+            throw new ArgumentException("Error. Starting balance must be a positive number.");
         }
 
         Console.Write("Status: ");
         status = Console.ReadLine();
-        while (status.Length == 0)
+        if (status.Length == 0)
         {
-            Console.WriteLine("Status can not be blank.");
-            Console.Write("Status: ");
-            status = Console.ReadLine();
+            throw new ArgumentException("Error. Status can not be blank.");
         }
 
         int newNum = Dal.CreateAccount(login, pin, holder, balance, status);
@@ -172,60 +169,48 @@ public static class AdminModel
     private static void deleteAccount()
     {
         int act;
-        bool valid = false;
 
-        while (!valid)
+        Console.Write("Enter the account number to which you want to delete: ");
+        string strNum = Console.ReadLine();
+
+        if (!int.TryParse(strNum, out act))
         {
-            Console.Write("Enter the account number to which you want to delete: ");
-            string strNum = Console.ReadLine();
+            throw new ArgumentException("Error. That is not a valid number.");
+        }
+        else if (act < 0)
+        {
+            throw new ArgumentException("Error. The number must be greater than 0.");
+        }
+        else
+        {
+            var dt = Dal.GetCustAccountByID(act);
 
-            if (!int.TryParse(strNum, out act))
+            if (dt.Rows.Count < 1)
             {
-                Console.WriteLine("That is not a valid number. Please try again.");
-            }
-            else if (act < 0)
-            {
-                Console.WriteLine("Enter a number greater than 0. Please try again.");
+                Console.WriteLine("No customer account found under that number.");
+
+                Console.WriteLine("Press any key to continue.");
+                Console.ReadKey(true);
+                Console.Clear();
             }
             else
             {
-                valid = true;
-                var dt = Dal.GetCustAccountByID(act);
-
-                if (dt.Rows.Count < 1)
+                Console.Write("You wish to delete the account held by " + dt.Rows[0]["Holder"] + ". If this information is correct, please re-enter the account number: ");
+                string strNum2 = Console.ReadLine();
+                if (strNum != strNum2)
                 {
-                    Console.WriteLine("No customer account found under that number.");
+                    throw new ArgumentException("Error. Account numbers do not match. Operation cancelled.");
+                }
+                else
+                {
+                    Console.WriteLine("Account Deleted Successfully");
+
+                    Dal.DeleteAccount(act);
 
                     Console.WriteLine("Press any key to continue.");
                     Console.ReadKey(true);
                     Console.Clear();
                 }
-                else
-                {
-                    bool matching = false;
-
-                    while (!matching)
-                    {
-                        Console.Write("You wish to delete the account held by " + dt.Rows[0]["Holder"] + ". If this information is correct, please re-enter the account number: ");
-                        string strNum2 = Console.ReadLine();
-                        if (strNum != strNum2)
-                        {
-                            Console.WriteLine("That number does not match the first, please try again.");
-                        }
-                        else
-                        {
-                            matching = true;
-                            Console.WriteLine("Account Deleted Successfully");
-
-                            Dal.DeleteAccount(act);
-
-                            Console.WriteLine("Press any key to continue.");
-                            Console.ReadKey(true);
-                            Console.Clear();
-                        }
-                    }
-                }
-
             }
         }
     }
@@ -233,116 +218,94 @@ public static class AdminModel
     private static void updateAccount()
     {
         int act;
-        bool valid = false;
 
-        while (!valid)
+        Console.Write("Enter the account number to which you want to update: ");
+        string strNum = Console.ReadLine();
+
+        if (!int.TryParse(strNum, out act))
         {
-            Console.Write("Enter the account number to which you want to update: ");
-            string strNum = Console.ReadLine();
+            throw new ArgumentException("Error. That is not a valid number.");
+        }
+        else if (act < 0)
+        {
+            throw new ArgumentException("Error. Number must be greater than zero.");
+        }
+        else
+        {
+            var dt = Dal.GetCustAccountByID(act);
 
-            if (!int.TryParse(strNum, out act))
+            if (dt.Rows.Count < 1)
             {
-                Console.WriteLine("That is not a valid number. Please try again.");
-            }
-            else if (act < 0)
-            {
-                Console.WriteLine("Enter a number greater than 0. Please try again.");
+                Console.WriteLine("No customer account found under that number.");
+
+                Console.WriteLine("Press any key to continue.");
+                Console.ReadKey(true);
+                Console.Clear();
             }
             else
             {
-                valid = true;
-                var dt = Dal.GetCustAccountByID(act);
+                Console.WriteLine();
 
-                if (dt.Rows.Count < 1)
+                displayAccount(dt);
+
+                string newHolder, newStatus, newLogin, newPin;
+
+                Console.WriteLine("\nEnter the new information or leave blank to keep the old.");
+
+                Console.Write("Holder: ");
+                newHolder = Console.ReadLine();
+
+                if (newHolder.Length == 0)
                 {
-                    Console.WriteLine("No customer account found under that number.");
-
-                    Console.WriteLine("Press any key to continue.");
-                    Console.ReadKey(true);
-                    Console.Clear();
-                }
-                else
-                {
-                    Console.WriteLine();
-
-                    displayAccount(dt);
-
-                    string newHolder, newStatus, newLogin, newPin;
-
-                    Console.WriteLine("\nEnter the new information or leave blank to keep the old.");
-
-                    Console.Write("Holder: ");
-                    newHolder = Console.ReadLine();
-
-                    if (newHolder.Length == 0)
-                    {
-                        newHolder = (string)dt.Rows[0]["Holder"];
-                    }
-
-                    Console.Write("Status: ");
-                    newStatus = Console.ReadLine();
-
-                    if (newStatus.Length == 0)
-                    {
-                        newStatus = (string)dt.Rows[0]["Status"];
-                    }
-
-                    bool validLogin = false;
-                    Console.Write("Login: ");
-                    newLogin = Console.ReadLine();
-
-                    while (!validLogin)
-                    {
-
-                        if (newLogin.Length == 0 || newLogin == (string)dt.Rows[0]["Username"])
-                        {
-                            newLogin = (string)dt.Rows[0]["Username"];
-                            validLogin = true;
-                        }
-                        else if (!validUsername(newLogin))
-                        {
-                            Console.WriteLine("That username is already taken. Please pick another.");
-                            Console.Write("Login: ");
-                            newLogin = Console.ReadLine();
-                        }
-                        else
-                        {
-                            validLogin = true;
-                        }
-                    }
-
-                    Console.Write("Pin Code: ");
-                    newPin = Console.ReadLine();
-
-                    while (!validPin(newPin) && !(newPin.Length == 0))
-                    {
-                        Console.WriteLine("That pin is invalid. Please ensure it is a 5 digit integer.");
-                        Console.Write("Pin Code: ");
-                        newPin = Console.ReadLine();
-                    }
-
-                    if (newPin.Length == 0)
-                    {
-                        newPin = (string)dt.Rows[0]["Pin"];
-                    }
-
-
-                    dt.Rows[0]["Holder"] = newHolder;
-                    dt.Rows[0]["Status"] = newStatus;
-                    dt.Rows[0]["Username"] = newLogin;
-                    dt.Rows[0]["Pin"] = newPin;
-
-                    Console.WriteLine("\nAccount updated.");
-                    displayAccount(dt);
-
-                    Dal.UpdateAccount(dt);
-
-
-                    Console.WriteLine("Press any key to continue.");
-                    Console.ReadKey(true);
-                    Console.Clear();
+                    newHolder = (string)dt.Rows[0]["Holder"];
                 }
 
+                Console.Write("Status: ");
+                newStatus = Console.ReadLine();
+
+                if (newStatus.Length == 0)
+                {
+                    newStatus = (string)dt.Rows[0]["Status"];
+                }
+
+                Console.Write("Login: ");
+                newLogin = Console.ReadLine();
+
+                if (newLogin.Length == 0 || newLogin == (string)dt.Rows[0]["Username"])
+                {
+                    newLogin = (string)dt.Rows[0]["Username"];
+                }
+                else if (!validUsername(newLogin))
+                {
+                    throw new ArgumentException("Error. That username is already taken.");
+                }
+
+                Console.Write("Pin Code: ");
+                newPin = Console.ReadLine();
+
+                if (!validPin(newPin) && !(newPin.Length == 0))
+                {
+                    throw new ArgumentException("Error. Pin is not a 5 digit integer.");
+                }
+
+                if (newPin.Length == 0)
+                {
+                    newPin = (string)dt.Rows[0]["Pin"];
+                }
+
+                dt.Rows[0]["Holder"] = newHolder;
+                dt.Rows[0]["Status"] = newStatus;
+                dt.Rows[0]["Username"] = newLogin;
+                dt.Rows[0]["Pin"] = newPin;
+
+                Console.WriteLine("\nAccount updated.");
+                displayAccount(dt);
+
+                Dal.UpdateAccount(dt);
+
+                Console.WriteLine("Press any key to continue.");
+                Console.ReadKey(true);
+                Console.Clear();
             }
         }
     }
@@ -350,45 +313,40 @@ public static class AdminModel
     private static void searchAccount()
     {
         int act;
-        bool valid = false;
 
-        while (!valid)
+        Console.Write("Enter the Account Number: ");
+        string strNum = Console.ReadLine();
+
+        if (!int.TryParse(strNum, out act))
         {
-            Console.Write("Enter the Account Number: ");
-            string strNum = Console.ReadLine();
+            throw new ArgumentException("Error. That is not a valid number.");
+        }
+        else if (act < 0)
+        {
+            throw new ArgumentException("Error. The number must be greater than zero.");
+        }
+        else
+        {
+            var dt = Dal.GetCustAccountByID(act);
 
-            if (!int.TryParse(strNum, out act))
+            if (dt.Rows.Count < 1)
             {
-                Console.WriteLine("That is not a valid number. Please try again.");
-            }
-            else if (act < 0)
-            {
-                Console.WriteLine("Enter a number greater than 0. Please try again.");
+                Console.Clear();
+                Console.WriteLine("No customer account found under that number.");
+
+                Console.WriteLine("Press any key to continue.");
+                Console.ReadKey(true);
+                Console.Clear();
             }
             else
             {
-                valid = true;
-                var dt = Dal.GetCustAccountByID(act);
+                Console.Clear();
 
-                if (dt.Rows.Count < 1)
-                {
-                    Console.Clear();
-                    Console.WriteLine("No customer account found under that number.");
+                displayAccount(dt);
 
-                    Console.WriteLine("Press any key to continue.");
-                    Console.ReadKey(true);
-                    Console.Clear();
-                }
-                else
-                {
-                    Console.Clear();
-
-                    displayAccount(dt);
-
-                    Console.WriteLine("Press any key to continue.");
-                    Console.ReadKey(true);
-                    Console.Clear();
-                }
+                Console.WriteLine("Press any key to continue.");
+                Console.ReadKey(true);
+                Console.Clear();
             }
         }
     }

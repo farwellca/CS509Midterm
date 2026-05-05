@@ -36,31 +36,37 @@ public static class CustomerModel
 
         while (!done)
         {
-            Console.WriteLine("\n1--Withdraw Cash\n2--Deposit Cash\n3--Display Balance\n4--Exit");
-
-            string? input = Console.ReadLine();
-
-            switch (input)
+            try
             {
-                case "1":
-                    withdrawCash(custAccount);
-                    break;
-                case "2":
-                    depositCash(custAccount);
-                    break;
-                case "3":
-                    displayBalance(custAccount);
-                    break;
-                case "4":
-                    Console.Clear();
-                    Console.WriteLine("Have a nice day.");
-                    done = true;
-                    break;
-                default:
-                    Console.Clear();
-                    Console.WriteLine("Invalid input. Please try again.");
-                    break;
+                Console.WriteLine("\n1--Withdraw Cash\n2--Deposit Cash\n3--Display Balance\n4--Exit");
 
+                string? input = Console.ReadLine();
+
+                switch (input)
+                {
+                    case "1":
+                        withdrawCash(custAccount);
+                        break;
+                    case "2":
+                        depositCash(custAccount);
+                        break;
+                    case "3":
+                        displayBalance(custAccount);
+                        break;
+                    case "4":
+                        Console.Clear();
+                        Console.WriteLine("Have a nice day.");
+                        done = true;
+                        break;
+                    default:
+                        Console.Clear();
+                        Console.WriteLine("Invalid input. Please try again.");
+                        break;
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
             }
         }
     }
@@ -69,44 +75,37 @@ public static class CustomerModel
     {
         Console.Clear();
 
-        bool validAmt = false;
-        while (!validAmt)
+        Console.Write("Enter the withdrawl amount: ");
+        String strAmount = Console.ReadLine();
+        int amount;
+
+        if (!int.TryParse(strAmount, out amount))
         {
-            Console.Write("Enter the withdrawl amount: ");
-            String strAmount = Console.ReadLine();
-            int amount;
+            throw new ArgumentException("Error. That is not a valid number.");
+        }
+        else if (amount < 0)
+        {
+            throw new ArgumentException("Error. The amount must be greater than zero.");
+        }
+        else if (amount > a.Balance)
+        {
+            throw new ArgumentException("Error. The amount must be less than your balance.");
+        }
+        else
+        {
+            a.Balance -= amount;
 
-            if (!int.TryParse(strAmount, out amount))
-            {
-                Console.WriteLine("That is not a valid number. Please try again.");
-            }
-            else if (amount < 0)
-            {
-                Console.WriteLine("Enter a number greater than 0. Please try again.");
-            }
-            else if (amount > a.Balance)
-            {
-                Console.WriteLine("Enter a number less than your balance. Please try again.");
-            }
-            else
-            {
-                validAmt = true;
+            Dal.UpdateBalance(a.AccountNum, a.Balance);
 
-                a.Balance -= amount;
+            Console.WriteLine("Cash Successfully Withdrawn.");
+            Console.WriteLine("Account #" + a.AccountNum);
+            Console.WriteLine("Date: " + DateTime.Now.ToString("M/d/yyyy"));
+            Console.WriteLine("Withdrawn: " + amount);
+            Console.WriteLine("Balance: " + a.Balance);
 
-                Dal.UpdateBalance(a.AccountNum, a.Balance);
-
-                Console.WriteLine("Cash Successfully Withdrawn.");
-                Console.WriteLine("Account #" + a.AccountNum);
-                Console.WriteLine("Date: " + DateTime.Now.ToString("M/d/yyyy"));
-                Console.WriteLine("Withdrawn: " + amount);
-                Console.WriteLine("Balance: " + a.Balance);
-
-                Console.WriteLine("Press any key to continue.");
-                Console.ReadKey(true);
-                Console.Clear();
-            }
-
+            Console.WriteLine("Press any key to continue.");
+            Console.ReadKey(true);
+            Console.Clear();
         }
     }
 
@@ -114,40 +113,33 @@ public static class CustomerModel
     {
         Console.Clear();
 
-        bool validAmt = false;
-        while (!validAmt)
+        Console.Write("Enter the cash amount to deposit: ");
+        String strAmount = Console.ReadLine();
+        int amount;
+
+        if (!int.TryParse(strAmount, out amount))
         {
-            Console.Write("Enter the cash amount to deposit: ");
-            String strAmount = Console.ReadLine();
-            int amount;
+            throw new ArgumentException("Error. That is not a valid number.");
+        }
+        else if (amount < 0)
+        {
+            throw new ArgumentException("Error. The amount must be greater than zero.");
+        }
+        else
+        {
+            a.Balance += amount;
 
-            if (!int.TryParse(strAmount, out amount))
-            {
-                Console.WriteLine("That is not a valid number. Please try again.");
-            }
-            else if (amount < 0)
-            {
-                Console.WriteLine("Enter a number greater than 0. Please try again.");
-            }
-            else
-            {
-                validAmt = true;
+            Dal.UpdateBalance(a.AccountNum, a.Balance);
 
-                a.Balance += amount;
+            Console.WriteLine("Cash Deposited Successfully.");
+            Console.WriteLine("Account #" + a.AccountNum);
+            Console.WriteLine("Date: " + DateTime.Now.ToString("M/d/yyyy"));
+            Console.WriteLine("Deposited: " + amount);
+            Console.WriteLine("Balance: " + a.Balance);
 
-                Dal.UpdateBalance(a.AccountNum, a.Balance);
-
-                Console.WriteLine("Cash Deposited Successfully.");
-                Console.WriteLine("Account #" + a.AccountNum);
-                Console.WriteLine("Date: " + DateTime.Now.ToString("M/d/yyyy"));
-                Console.WriteLine("Deposited: " + amount);
-                Console.WriteLine("Balance: " + a.Balance);
-
-                Console.WriteLine("Press any key to continue.");
-                Console.ReadKey(true);
-                Console.Clear();
-            }
-
+            Console.WriteLine("Press any key to continue.");
+            Console.ReadKey(true);
+            Console.Clear();
         }
     }
 
