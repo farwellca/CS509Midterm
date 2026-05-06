@@ -10,16 +10,22 @@ using System.Diagnostics.Contracts;
 
 public interface ICustomerModel
 {
-    void ShowCustomerMenu(string username, string pin);
+    int withdrawCash(string username, string pin);
+    int depositCash(string username, string pin);
+    void displayBalance(string username, string pin);
 }
 
 public class CustomerModel : ICustomerModel
 {
     private readonly IDal _dal;
+    private readonly IConsole _console;
+    public Account account;
 
-    public CustomerModel(IDal dal)
+    public CustomerModel(IDal dal, IConsole console)
     {
         _dal = dal;
+        _console = console;
+        account = new Account();
     }
 
     public class Account
@@ -30,64 +36,23 @@ public class CustomerModel : ICustomerModel
         public string Status { get; set; }
     }
 
-    public void ShowCustomerMenu(string username, string pin)
+    private void loadAccount(string username, string pin)
     {
-        Console.Clear();
-
-        bool done = false;
-
         var custDt = _dal.GetCustAccount(username, pin);
-        var custAccount = new Account
-        {
-            AccountNum = (int)custDt.Rows[0]["ID"],
-            Holder = (string)custDt.Rows[0]["Holder"],
-            Balance = (int)custDt.Rows[0]["Balance"],
-            Status = (string)custDt.Rows[0]["Status"]
-        };
-
-        while (!done)
-        {
-            try
-            {
-                Console.WriteLine("\n1--Withdraw Cash\n2--Deposit Cash\n3--Display Balance\n4--Exit");
-
-                string? input = Console.ReadLine();
-
-                switch (input)
-                {
-                    case "1":
-                        withdrawCash(custAccount);
-                        break;
-                    case "2":
-                        depositCash(custAccount);
-                        break;
-                    case "3":
-                        displayBalance(custAccount);
-                        break;
-                    case "4":
-                        Console.Clear();
-                        Console.WriteLine("Have a nice day.");
-                        done = true;
-                        break;
-                    default:
-                        Console.Clear();
-                        Console.WriteLine("Invalid input. Please try again.");
-                        break;
-                }
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e.Message);
-            }
-        }
+        account.AccountNum = (int)custDt.Rows[0]["ID"];
+        account.Holder = (string)custDt.Rows[0]["Holder"];
+        account.Balance = (int)custDt.Rows[0]["Balance"];
+        account.Status = (string)custDt.Rows[0]["Status"];
     }
 
-    private void withdrawCash(Account a)
+    public int withdrawCash(string username, string pin)
     {
+
+        loadAccount(username, pin);
         Console.Clear();
 
-        Console.Write("Enter the withdrawl amount: ");
-        String strAmount = Console.ReadLine();
+        _console.Write("Enter the withdrawl amount: ");
+        String strAmount = _console.ReadLine();
         int amount;
 
         if (!int.TryParse(strAmount, out amount))
@@ -98,34 +63,37 @@ public class CustomerModel : ICustomerModel
         {
             throw new ArgumentException("Error. The amount must be greater than zero.");
         }
-        else if (amount > a.Balance)
+        else if (amount > account.Balance)
         {
             throw new ArgumentException("Error. The amount must be less than your balance.");
         }
         else
         {
-            a.Balance -= amount;
+            account.Balance -= amount;
 
-            _dal.UpdateBalance(a.AccountNum, a.Balance);
+            _dal.UpdateBalance(account.AccountNum, account.Balance);
 
-            Console.WriteLine("Cash Successfully Withdrawn.");
-            Console.WriteLine("Account #" + a.AccountNum);
-            Console.WriteLine("Date: " + DateTime.Now.ToString("M/d/yyyy"));
-            Console.WriteLine("Withdrawn: " + amount);
-            Console.WriteLine("Balance: " + a.Balance);
+            _console.WriteLine("Cash Successfully Withdrawn.");
+            _console.WriteLine("Account #" + account.AccountNum);
+            _console.WriteLine("Date: " + DateTime.Now.ToString("M/d/yyyy"));
+            _console.WriteLine("Withdrawn: " + amount);
+            _console.WriteLine("Balance: " + account.Balance);
 
-            Console.WriteLine("Press any key to continue.");
-            Console.ReadKey(true);
+            _console.WriteLine("Press any key to continue.");
+            _console.ReadKey(true);
             Console.Clear();
+
+            return account.Balance;
         }
     }
 
-    private void depositCash(Account a)
+    public int depositCash(string username, string pin)
     {
+        loadAccount(username, pin);
         Console.Clear();
 
-        Console.Write("Enter the cash amount to deposit: ");
-        String strAmount = Console.ReadLine();
+        _console.Write("Enter the cash amount to deposit: ");
+        String strAmount = _console.ReadLine();
         int amount;
 
         if (!int.TryParse(strAmount, out amount))
@@ -138,30 +106,33 @@ public class CustomerModel : ICustomerModel
         }
         else
         {
-            a.Balance += amount;
+            account.Balance += amount;
 
-            _dal.UpdateBalance(a.AccountNum, a.Balance);
+            _dal.UpdateBalance(account.AccountNum, account.Balance);
 
-            Console.WriteLine("Cash Deposited Successfully.");
-            Console.WriteLine("Account #" + a.AccountNum);
-            Console.WriteLine("Date: " + DateTime.Now.ToString("M/d/yyyy"));
-            Console.WriteLine("Deposited: " + amount);
-            Console.WriteLine("Balance: " + a.Balance);
+            _console.WriteLine("Cash Deposited Successfully.");
+            _console.WriteLine("Account #" + account.AccountNum);
+            _console.WriteLine("Date: " + DateTime.Now.ToString("M/d/yyyy"));
+            _console.WriteLine("Deposited: " + amount);
+            _console.WriteLine("Balance: " + account.Balance);
 
-            Console.WriteLine("Press any key to continue.");
-            Console.ReadKey(true);
+            _console.WriteLine("Press any key to continue.");
+            _console.ReadKey(true);
             Console.Clear();
+
+            return account.Balance;
         }
     }
 
-    private void displayBalance(Account a)
+    public void displayBalance(string username, string pin)
     {
+        loadAccount(username, pin);
         Console.Clear();
-        Console.WriteLine("Account #" + a.AccountNum);
-        Console.WriteLine("Date: " + DateTime.Now.ToString("M/d/yyyy"));
-        Console.WriteLine("Balance: " + a.Balance);
-        Console.WriteLine("Press any key to continue.");
-        Console.ReadKey(true);
+        _console.WriteLine("Account #" + account.AccountNum);
+        _console.WriteLine("Date: " + DateTime.Now.ToString("M/d/yyyy"));
+        _console.WriteLine("Balance: " + account.Balance);
+        _console.WriteLine("Press any key to continue.");
+        _console.ReadKey(true);
         Console.Clear();
     }
 }

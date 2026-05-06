@@ -1,18 +1,25 @@
 ﻿using System.Transactions;
 using model;
 using dal;
+using System.ComponentModel.Design;
+using menu;
 
 class ATM
 {
     public static void Main()
     {
-        bool loggedIn = false;
+        Menu menu = new Menu();
+        menu.Run();
+
+        /*bool loggedIn = false;
 
         Dal dal = new Dal();
 
-        IAdminModel _adminModel = new AdminModel(dal);
-        ICustomerModel _customerModel = new CustomerModel(dal);
+        IConsole console = new ConsoleWrapper();
+        IAdminModel _adminModel = new AdminModel(dal, console);
+        ICustomerModel _customerModel = new CustomerModel(dal, console);
         ILoginModel _loginModel = new LoginModel(dal);
+
 
         while (!loggedIn)
         {
@@ -50,6 +57,6 @@ class ATM
             {
                 Console.WriteLine(e.Message);
             }
-        }
+        }*/
     }
 }
