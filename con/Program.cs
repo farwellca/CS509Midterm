@@ -1,42 +1,55 @@
 ﻿using System.Transactions;
 using model;
+using dal;
 
-bool loggedIn = false;
-
-while (!loggedIn)
+class ATM
 {
-    try
+    public static void Main()
     {
+        bool loggedIn = false;
 
-        Console.Write("Enter login: ");
-        string? username = Console.ReadLine();
+        Dal dal = new Dal();
 
-        Console.Write("Enter Pin code: ");
-        string? pin = Console.ReadLine();
+        IAdminModel _adminModel = new AdminModel(dal);
+        ICustomerModel _customerModel = new CustomerModel(dal);
+        ILoginModel _loginModel = new LoginModel(dal);
 
-        if (LoginModel.Login(username, pin))
+        while (!loggedIn)
         {
-            Console.WriteLine("Success!");
-
-            switch (LoginModel.getUserType(username, pin))
+            try
             {
-                case "Customer":
-                    CustomerModel.ShowCustomerMenu(username, pin);
-                    break;
-                case "Admin":
-                    AdminModel.ShowAdminMenu();
-                    break;
-            }
 
-            loggedIn = true;
+                Console.Write("Enter login: ");
+                string? username = Console.ReadLine();
+
+                Console.Write("Enter Pin code: ");
+                string? pin = Console.ReadLine();
+
+                if (_loginModel.Login(username, pin))
+                {
+                    Console.WriteLine("Success!");
+
+                    switch (_loginModel.GetUserType(username, pin))
+                    {
+                        case "Customer":
+                            _customerModel.ShowCustomerMenu(username, pin);
+                            break;
+                        case "Admin":
+                            _adminModel.ShowAdminMenu();
+                            break;
+                    }
+
+                    loggedIn = true;
+                }
+                else
+                {
+                    throw new ArgumentException("Error: Invalid login information.");
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
         }
-        else
-        {
-            throw new ArgumentException("Error: Invalid login information.");
-        }
-    }
-    catch (Exception e)
-    {
-        Console.WriteLine(e.Message);
     }
 }

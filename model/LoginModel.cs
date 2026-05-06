@@ -5,13 +5,26 @@ using dal;
 using System.Data;
 using System.Xml;
 
-public static class LoginModel
+public interface ILoginModel
 {
-    public static bool Login(string username, string pin)
+    bool Login(string username, string pin);
+    string GetUserType(string username, string pin);
+}
+
+public class LoginModel : ILoginModel
+{
+    private readonly IDal _dal;
+
+    public LoginModel(IDal dal)
+    {
+        _dal = dal;
+    }
+
+    public bool Login(string username, string pin)
     {
         bool valid = false;
 
-        var dt = Dal.GetLoginInfo();
+        var dt = _dal.GetLoginInfo();
         foreach (DataRow r in dt.Rows)
         {
             if ((string)r["Username"] == username && (string)r["Pin"] == pin)
@@ -19,14 +32,13 @@ public static class LoginModel
                 valid = true;
                 break;
             }
-
         }
         return valid;
     }
 
-    public static string getUserType(string username, string pin)
+    public string GetUserType(string username, string pin)
     {
-        var dt = Dal.GetUserType(username, pin);
+        var dt = _dal.GetUserType(username, pin);
         return (string)dt.Rows[0]["Type"];
     }
 }

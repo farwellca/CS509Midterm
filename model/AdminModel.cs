@@ -7,12 +7,25 @@ using Microsoft.VisualBasic;
 using System.Threading.Tasks.Dataflow;
 using System.ComponentModel;
 
-public static class AdminModel
+public interface IAdminModel
 {
-    public static string GetAll()
+    string GetAll();
+    void ShowAdminMenu();
+}
+
+public class AdminModel : IAdminModel
+{
+    private readonly IDal _dal;
+
+    public AdminModel(IDal dal)
+    {
+        _dal = dal;
+    }
+
+    public string GetAll()
     {
         string output = "";
-        var dt = Dal.GetAll();
+        var dt = _dal.GetAll();
 
         foreach (DataRow r in dt.Rows)
         {
@@ -25,7 +38,7 @@ public static class AdminModel
         return output;
     }
 
-    public static void ShowAdminMenu()
+    public void ShowAdminMenu()
     {
         Console.Clear();
 
@@ -72,7 +85,7 @@ public static class AdminModel
         }
     }
 
-    private static void createAccount()
+    private void createAccount()
     {
         string login;
         string pin;
@@ -126,7 +139,7 @@ public static class AdminModel
             throw new ArgumentException("Error. Status can not be blank.");
         }
 
-        int newNum = Dal.CreateAccount(login, pin, holder, balance, status);
+        int newNum = _dal.CreateAccount(login, pin, holder, balance, status);
         Console.WriteLine("Account Successfully Created - the account number assigned is: " + newNum);
 
         Console.WriteLine("Press any key to continue.");
@@ -135,9 +148,9 @@ public static class AdminModel
 
     }
 
-    private static bool validUsername(string login)
+    private bool validUsername(string login)
     {
-        var dt = Dal.GetUsernames();
+        var dt = _dal.GetUsernames();
 
         foreach (DataRow r in dt.Rows)
         {
@@ -150,7 +163,7 @@ public static class AdminModel
         return true;
     }
 
-    private static bool validPin(string pin)
+    private bool validPin(string pin)
     {
         int i;
 
@@ -166,7 +179,7 @@ public static class AdminModel
         return true;
     }
 
-    private static void deleteAccount()
+    private void deleteAccount()
     {
         int act;
 
@@ -183,7 +196,7 @@ public static class AdminModel
         }
         else
         {
-            var dt = Dal.GetCustAccountByID(act);
+            var dt = _dal.GetCustAccountByID(act);
 
             if (dt.Rows.Count < 1)
             {
@@ -205,7 +218,7 @@ public static class AdminModel
                 {
                     Console.WriteLine("Account Deleted Successfully");
 
-                    Dal.DeleteAccount(act);
+                    _dal.DeleteAccount(act);
 
                     Console.WriteLine("Press any key to continue.");
                     Console.ReadKey(true);
@@ -215,7 +228,7 @@ public static class AdminModel
         }
     }
 
-    private static void updateAccount()
+    private void updateAccount()
     {
         int act;
 
@@ -232,7 +245,7 @@ public static class AdminModel
         }
         else
         {
-            var dt = Dal.GetCustAccountByID(act);
+            var dt = _dal.GetCustAccountByID(act);
 
             if (dt.Rows.Count < 1)
             {
@@ -301,7 +314,7 @@ public static class AdminModel
                 Console.WriteLine("\nAccount updated.");
                 displayAccount(dt);
 
-                Dal.UpdateAccount(dt);
+                _dal.UpdateAccount(dt);
 
                 Console.WriteLine("Press any key to continue.");
                 Console.ReadKey(true);
@@ -310,7 +323,7 @@ public static class AdminModel
         }
     }
 
-    private static void searchAccount()
+    private void searchAccount()
     {
         int act;
 
@@ -327,7 +340,7 @@ public static class AdminModel
         }
         else
         {
-            var dt = Dal.GetCustAccountByID(act);
+            var dt = _dal.GetCustAccountByID(act);
 
             if (dt.Rows.Count < 1)
             {
@@ -351,7 +364,7 @@ public static class AdminModel
         }
     }
 
-    private static void displayAccount(DataTable dt)
+    private void displayAccount(DataTable dt)
     {
         Console.WriteLine("The account information is:");
         Console.WriteLine("Account # " + dt.Rows[0]["ID"]);

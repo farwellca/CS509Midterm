@@ -5,11 +5,25 @@ using MySql.Data.MySqlClient;
 
 namespace dal;
 
-public static class Dal
+public interface IDal
+{
+    DataTable GetAll();
+    DataTable GetLoginInfo();
+    DataTable GetUserType(string username, string pin);
+    DataTable GetCustAccount(string username, string pin);
+    DataTable GetCustAccountByID(int actNum);
+    int UpdateBalance(int id, int balance);
+    int DeleteAccount(int account);
+    DataTable GetUsernames();
+    int CreateAccount(string login, string pin, string holder, int balance, string status);
+    int UpdateAccount(DataTable dt);
+}
+
+public class Dal : IDal
 {
     private const string connectionString = "server=host.docker.internal;port=3333;uid=root;pwd=a;database=atm";
 
-    public static DataTable GetAll()
+    public  DataTable GetAll()
     {
         var dt = new DataTable();
         using (var connection = new MySqlConnection(connectionString))
@@ -24,7 +38,7 @@ public static class Dal
         return dt;
     }
 
-    public static DataTable GetLoginInfo()
+    public DataTable GetLoginInfo()
     {
         var dt = new DataTable();
         using (var connection = new MySqlConnection(connectionString))
@@ -39,7 +53,7 @@ public static class Dal
         return dt;
     }
 
-    public static DataTable GetUserType(string username, string pin)
+    public DataTable GetUserType(string username, string pin)
     {
         var dt = new DataTable();
         using (var connection = new MySqlConnection(connectionString))
@@ -54,7 +68,7 @@ public static class Dal
         return dt;
     }
 
-    public static DataTable GetCustAccount(string username, string pin)
+    public DataTable GetCustAccount(string username, string pin)
     {
         var dt = new DataTable();
         using (var connection = new MySqlConnection(connectionString))
@@ -69,7 +83,7 @@ public static class Dal
         return dt;
     }
 
-    public static DataTable GetCustAccountByID(int actNum)
+    public DataTable GetCustAccountByID(int actNum)
     {
         var dt = new DataTable();
         using (var connection = new MySqlConnection(connectionString))
@@ -84,7 +98,7 @@ public static class Dal
         return dt;
     }
 
-    public static int UpdateBalance(int id, int balance)
+    public int UpdateBalance(int id, int balance)
     {
         int changed;
 
@@ -102,7 +116,7 @@ public static class Dal
         return changed;
     }
 
-    public static int DeleteAccount(int account)
+    public int DeleteAccount(int account)
     {
         using var connection = new MySqlConnection(connectionString);
         connection.Open();
@@ -113,7 +127,7 @@ public static class Dal
         return command.ExecuteNonQuery();
     }
 
-    public static DataTable GetUsernames()
+    public DataTable GetUsernames()
     {
         var dt = new DataTable();
         using (var connection = new MySqlConnection(connectionString))
@@ -128,7 +142,7 @@ public static class Dal
         return dt;
     }
 
-    public static int CreateAccount(string login, string pin, string holder, int balance, string status)
+    public int CreateAccount(string login, string pin, string holder, int balance, string status)
     {
         using var connection = new MySqlConnection(connectionString);
         connection.Open();
@@ -153,7 +167,7 @@ public static class Dal
         return lastID;
     }
 
-    public static int UpdateAccount(DataTable dt)
+    public int UpdateAccount(DataTable dt)
     {
         int changed;
 

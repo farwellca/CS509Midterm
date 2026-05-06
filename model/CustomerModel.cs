@@ -8,8 +8,19 @@ using System.Threading.Tasks.Dataflow;
 using System.ComponentModel;
 using System.Diagnostics.Contracts;
 
-public static class CustomerModel
+public interface ICustomerModel
 {
+    void ShowCustomerMenu(string username, string pin);
+}
+
+public class CustomerModel : ICustomerModel
+{
+    private readonly IDal _dal;
+
+    public CustomerModel(IDal dal)
+    {
+        _dal = dal;
+    }
 
     public class Account
     {
@@ -19,13 +30,13 @@ public static class CustomerModel
         public string Status { get; set; }
     }
 
-    public static void ShowCustomerMenu(string username, string pin)
+    public void ShowCustomerMenu(string username, string pin)
     {
         Console.Clear();
 
         bool done = false;
 
-        var custDt = Dal.GetCustAccount(username, pin);
+        var custDt = _dal.GetCustAccount(username, pin);
         var custAccount = new Account
         {
             AccountNum = (int)custDt.Rows[0]["ID"],
@@ -71,7 +82,7 @@ public static class CustomerModel
         }
     }
 
-    private static void withdrawCash(Account a)
+    private void withdrawCash(Account a)
     {
         Console.Clear();
 
@@ -95,7 +106,7 @@ public static class CustomerModel
         {
             a.Balance -= amount;
 
-            Dal.UpdateBalance(a.AccountNum, a.Balance);
+            _dal.UpdateBalance(a.AccountNum, a.Balance);
 
             Console.WriteLine("Cash Successfully Withdrawn.");
             Console.WriteLine("Account #" + a.AccountNum);
@@ -109,7 +120,7 @@ public static class CustomerModel
         }
     }
 
-    private static void depositCash(Account a)
+    private void depositCash(Account a)
     {
         Console.Clear();
 
@@ -129,7 +140,7 @@ public static class CustomerModel
         {
             a.Balance += amount;
 
-            Dal.UpdateBalance(a.AccountNum, a.Balance);
+            _dal.UpdateBalance(a.AccountNum, a.Balance);
 
             Console.WriteLine("Cash Deposited Successfully.");
             Console.WriteLine("Account #" + a.AccountNum);
@@ -143,7 +154,7 @@ public static class CustomerModel
         }
     }
 
-    private static void displayBalance(Account a)
+    private void displayBalance(Account a)
     {
         Console.Clear();
         Console.WriteLine("Account #" + a.AccountNum);
