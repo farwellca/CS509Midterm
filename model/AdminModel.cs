@@ -9,7 +9,6 @@ using System.ComponentModel;
 
 public interface IAdminModel
 {
-    string GetAll();
     int createAccount();
     int deleteAccount();
     int updateAccount();
@@ -25,22 +24,6 @@ public class AdminModel : IAdminModel
     {
         _dal = dal;
         _console = console;
-    }
-
-    public string GetAll()
-    {
-        string output = "";
-        var dt = _dal.GetAll();
-
-        foreach (DataRow r in dt.Rows)
-        {
-            output += (int)r["ID"] + " ";
-            output += (string)r["Username"] + " ";
-            output += (string)r["Pin"] + " ";
-            output += (string)r["Type"] + "\n";
-        }
-
-        return output;
     }
 
     public int createAccount()
