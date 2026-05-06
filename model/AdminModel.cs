@@ -10,7 +10,10 @@ using System.ComponentModel;
 public interface IAdminModel
 {
     string GetAll();
-    void ShowAdminMenu();
+    int createAccount();
+    int deleteAccount();
+    int updateAccount();
+    void searchAccount();
 }
 
 public class AdminModel : IAdminModel
@@ -40,54 +43,7 @@ public class AdminModel : IAdminModel
         return output;
     }
 
-    public void ShowAdminMenu()
-    {
-        Console.Clear();
-
-        bool done = false;
-
-        while (!done)
-        {
-            try
-            {
-                _console.WriteLine("\n1--Create New Account\n2--Delete Existing Accont\n3--Update Account Information\n4--Search for Account\n5--Exit");
-
-                string? input = _console.ReadLine();
-
-                switch (input)
-                {
-                    case "1":
-                        createAccount();
-                        break;
-                    case "2":
-                        deleteAccount();
-                        break;
-                    case "3":
-                        updateAccount();
-                        break;
-                    case "4":
-                        searchAccount();
-                        break;
-                    case "5":
-                        Console.Clear();
-                        _console.WriteLine("Have a nice day.");
-                        done = true;
-                        break;
-                    default:
-                        Console.Clear();
-                        _console.WriteLine("Invalid input. Please try again.");
-                        break;
-
-                }
-            }
-            catch (Exception e)
-            {
-                _console.WriteLine(e.Message);
-            }
-        }
-    }
-
-    private void createAccount()
+    public int createAccount()
     {
         string login;
         string pin;
@@ -148,6 +104,7 @@ public class AdminModel : IAdminModel
         _console.ReadKey(true);
         Console.Clear();
 
+        return newNum;
     }
 
     private bool validUsername(string login)
@@ -181,7 +138,7 @@ public class AdminModel : IAdminModel
         return true;
     }
 
-    private void deleteAccount()
+    public int deleteAccount()
     {
         int act;
 
@@ -207,6 +164,8 @@ public class AdminModel : IAdminModel
                 _console.WriteLine("Press any key to continue.");
                 _console.ReadKey(true);
                 Console.Clear();
+
+                return 0;
             }
             else
             {
@@ -220,17 +179,19 @@ public class AdminModel : IAdminModel
                 {
                     _console.WriteLine("Account Deleted Successfully");
 
-                    _dal.DeleteAccount(act);
+                    int numDeleted = _dal.DeleteAccount(act);
 
                     _console.WriteLine("Press any key to continue.");
                     _console.ReadKey(true);
                     Console.Clear();
+
+                    return numDeleted;
                 }
             }
         }
     }
 
-    private void updateAccount()
+    public int updateAccount()
     {
         int act;
 
@@ -256,6 +217,8 @@ public class AdminModel : IAdminModel
                 _console.WriteLine("Press any key to continue.");
                 _console.ReadKey(true);
                 Console.Clear();
+
+                return 0;
             }
             else
             {
@@ -316,16 +279,18 @@ public class AdminModel : IAdminModel
                 _console.WriteLine("\nAccount updated.");
                 displayAccount(dt);
 
-                _dal.UpdateAccount(dt);
+                int numUpdated = _dal.UpdateAccount(dt);
 
                 _console.WriteLine("Press any key to continue.");
                 _console.ReadKey(true);
                 Console.Clear();
+
+                return numUpdated;
             }
         }
     }
 
-    private void searchAccount()
+    public void searchAccount()
     {
         int act;
 

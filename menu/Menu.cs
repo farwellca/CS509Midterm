@@ -45,7 +45,7 @@ public class Menu
                             ShowCustomerMenu(username, pin);
                             break;
                         case "Admin":
-                            _adminModel.ShowAdminMenu();
+                            ShowAdminMenu();
                             break;
                     }
 
@@ -97,6 +97,53 @@ public class Menu
                         Console.Clear();
                         console.WriteLine("Invalid input. Please try again.");
                         break;
+                }
+            }
+            catch (Exception e)
+            {
+                console.WriteLine(e.Message);
+            }
+        }
+    }
+
+    public void ShowAdminMenu()
+    {
+        Console.Clear();
+
+        bool done = false;
+
+        while (!done)
+        {
+            try
+            {
+                console.WriteLine("\n1--Create New Account\n2--Delete Existing Accont\n3--Update Account Information\n4--Search for Account\n5--Exit");
+
+                string? input = console.ReadLine();
+
+                switch (input)
+                {
+                    case "1":
+                        _adminModel.createAccount();
+                        break;
+                    case "2":
+                        _adminModel.deleteAccount();
+                        break;
+                    case "3":
+                        _adminModel.updateAccount();
+                        break;
+                    case "4":
+                        _adminModel.searchAccount();
+                        break;
+                    case "5":
+                        Console.Clear();
+                        console.WriteLine("Have a nice day.");
+                        done = true;
+                        break;
+                    default:
+                        Console.Clear();
+                        console.WriteLine("Invalid input. Please try again.");
+                        break;
+
                 }
             }
             catch (Exception e)
