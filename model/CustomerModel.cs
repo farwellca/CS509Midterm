@@ -8,10 +8,30 @@ using System.Threading.Tasks.Dataflow;
 using System.ComponentModel;
 using System.Diagnostics.Contracts;
 
+/// <summary>
+/// Handles customer actions.
+/// </summary>
 public interface ICustomerModel
 {
+    /// <summary>
+    /// Withdraws cash from the user's account.
+    /// </summary>
+    /// <param name="username">Current user's username.</param>
+    /// <param name="pin">Current user's pin.</param>
+    /// <returns>The new account balance.</returns>
     int withdrawCash(string username, string pin);
+    /// <summary>
+    /// Deposits cash to the user's account.
+    /// </summary>
+    /// <param name="username">Current user's username.</param>
+    /// <param name="pin">Current user's pin.</param>
+    /// <returns>The new account balance.</returns>
     int depositCash(string username, string pin);
+    /// <summary>
+    /// Displays the user's account information.
+    /// </summary>
+    /// <param name="username">Current user's username.</param>
+    /// <param name="pin">Current user's pin.</param>
     void displayBalance(string username, string pin);
 }
 
@@ -28,6 +48,9 @@ public class CustomerModel : ICustomerModel
         account = new Account();
     }
 
+    /// <summary>
+    /// Class holding temporary information for a user's account.
+    /// </summary>
     public class Account
     {
         public int AccountNum { get; set; }

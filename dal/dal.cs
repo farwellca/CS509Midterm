@@ -5,17 +5,74 @@ using MySql.Data.MySqlClient;
 
 namespace dal;
 
+/// <summary>
+/// Handles the database connection and actions.
+/// </summary>
 public interface IDal
 {
+    /// <summary>
+    /// Returns all users.
+    /// </summary>
+    /// <returns>A DataTable of all users.</returns>
     DataTable GetAll();
+    /// <summary>
+    /// Gets all username and pin combinations.
+    /// </summary>
+    /// <returns>A DataTable of all usernames and corresponding pins.</returns>
     DataTable GetLoginInfo();
+    /// <summary>
+    /// Gets the account type of a specified account.
+    /// </summary>
+    /// <param name="username">Account username.</param>
+    /// <param name="pin">Account pin.</param>
+    /// <returns>The account type, Adimin or Customer.</returns>
     DataTable GetUserType(string username, string pin);
+    /// <summary>
+    /// Gets the account information for a user by username and pin.
+    /// </summary>
+    /// <param name="username">Account username.</param>
+    /// <param name="pin">Account pin.</param>
+    /// <returns>A DataTable of the account information of a customer.</returns>
     DataTable GetCustAccount(string username, string pin);
+    /// <summary>
+    /// Gets the account information for a user by account number.
+    /// </summary>
+    /// <param name="actNum">The account ID.</param>
+    /// <returns>A DataTable of the account information of a customer.</returns>
     DataTable GetCustAccountByID(int actNum);
+    /// <summary>
+    /// Updates the account balance for a user.
+    /// </summary>
+    /// <param name="id">The account ID.</param>
+    /// <param name="balance">The new balance.</param>
+    /// <returns>The number of database rows changed.</returns>
     int UpdateBalance(int id, int balance);
+    /// <summary>
+    /// Deletes an account from the database.
+    /// </summary>
+    /// <param name="account">The account to delete.</param>
+    /// <returns>The number of database rows changed.</returns>
     int DeleteAccount(int account);
+    /// <summary>
+    /// Gets all the usernames from the database.
+    /// </summary>
+    /// <returns>A DataTable of all the usernames.</returns>
     DataTable GetUsernames();
+    /// <summary>
+    /// Creates a new account in the database.
+    /// </summary>
+    /// <param name="login">The account username.</param>
+    /// <param name="pin">The account pin.</param>
+    /// <param name="holder">The account holder.</param>
+    /// <param name="balance">The account starting balance.</param>
+    /// <param name="status">The account status.</param>
+    /// <returns>The number of database rows changed.</returns>
     int CreateAccount(string login, string pin, string holder, int balance, string status);
+    /// <summary>
+    /// Updates the information for an account.
+    /// </summary>
+    /// <param name="dt">A DataTable holding the new account information.</param>
+    /// <returns>The number of database rows changed.</returns>
     int UpdateAccount(DataTable dt);
 }
 
@@ -23,7 +80,7 @@ public class Dal : IDal
 {
     private const string connectionString = "server=host.docker.internal;port=3333;uid=root;pwd=a;database=atm";
 
-    public  DataTable GetAll()
+    public DataTable GetAll()
     {
         var dt = new DataTable();
         using (var connection = new MySqlConnection(connectionString))
@@ -105,7 +162,7 @@ public class Dal : IDal
         using var connection = new MySqlConnection(connectionString);
         connection.Open();
 
-        using var command = new MySqlCommand(@"update Accounts 
+        using var command = new MySqlCommand(@"update Accounts
                                                 set Balance = @Balance
                                                 where Accounts.AccountNum = @actNum;", connection);
         command.Parameters.AddWithValue("@Balance", balance);
@@ -174,7 +231,7 @@ public class Dal : IDal
         using var connection = new MySqlConnection(connectionString);
         connection.Open();
 
-        using var command = new MySqlCommand(@"update Users 
+        using var command = new MySqlCommand(@"update Users
                                                 set Username = @Username,
                                                     Pin = @Pin
                                                 where Users.ID = @Id;", connection);
@@ -184,7 +241,7 @@ public class Dal : IDal
 
         changed = command.ExecuteNonQuery();
 
-        using var command2 = new MySqlCommand(@"update Accounts 
+        using var command2 = new MySqlCommand(@"update Accounts
                                                 set Holder = @Holder,
                                                     Status = @Status
                                                 where Accounts.AccountNum = @Id;", connection);

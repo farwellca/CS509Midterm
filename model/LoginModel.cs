@@ -5,8 +5,17 @@ using dal;
 using System.Data;
 using System.Xml;
 
+/// <summary>
+/// Interface for handling user login actions.
+/// </summary>
 public interface ILoginModel
 {
+    /// <summary>
+    /// Checks to see if a username and pin combination is valid.
+    /// </summary>
+    /// <param name="username">The username to check.</param>
+    /// <param name="pin">The pin to check.</param>
+    /// <returns>True if username and password are valid, false otherwise.</returns>
     bool Login(string username, string pin);
     string GetUserType(string username, string pin);
 }

@@ -7,11 +7,29 @@ using Microsoft.VisualBasic;
 using System.Threading.Tasks.Dataflow;
 using System.ComponentModel;
 
+/// <summary>
+/// Handles admin actions.
+/// </summary>
 public interface IAdminModel
 {
+    /// <summary>
+    /// Creates a new customer account.
+    /// </summary>
+    /// <returns>Returns the new account number.</returns>
     int createAccount();
+    /// <summary>
+    /// Deletes customer account.
+    /// </summary>
+    /// <returns>The number of database rows deleted.</returns>
     int deleteAccount();
+    /// <summary>
+    /// Updates a user account.
+    /// </summary>
+    /// <returns>The number of database rows updated.</returns>
     int updateAccount();
+    /// <summary>
+    /// Searches and displays a customer's account.
+    /// </summary>
     void searchAccount();
 }
 
