@@ -17,6 +17,12 @@ public interface ILoginModel
     /// <param name="pin">The pin to check.</param>
     /// <returns>True if username and password are valid, false otherwise.</returns>
     bool Login(string username, string pin);
+    /// <summary>
+    /// Gets the account type of a user.
+    /// </summary>
+    /// <param name="username">The account username.</param>
+    /// <param name="pin">The account pin.</param>
+    /// <returns>The account type of a user, Admin or Customer.</returns>
     string GetUserType(string username, string pin);
 }
 

@@ -150,7 +150,6 @@ public class Menu
                         Console.Clear();
                         console.WriteLine("Invalid input. Please try again.");
                         break;
-
                 }
             }
             catch (Exception e)
