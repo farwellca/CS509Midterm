@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['updateaccount_0',['UpdateAccount',['../interfacedal_1_1_i_dal.html#a5626ace293208e52c1688426cdeb6a13',1,'dal.IDal.UpdateAccount()'],['../classdal_1_1_dal.html#a0a3f04f65ca31fbddecb45436ce00612',1,'dal.Dal.UpdateAccount()']]],
-  ['updateaccount_1',['updateAccount',['../interfacemodel_1_1_i_admin_model.html#a268517e7c18774ca2d0eb9d22caeaca3',1,'model.IAdminModel.updateAccount()'],['../classmodel_1_1_admin_model.html#a40786ae9d17aa63a646d07440ce61eb2',1,'model.AdminModel.updateAccount()']]],
-  ['updatebalance_2',['UpdateBalance',['../interfacedal_1_1_i_dal.html#a1ebdc7c5e470d2e9eb4c55ac8718c969',1,'dal.IDal.UpdateBalance()'],['../classdal_1_1_dal.html#ad58a87de5da65337464069dad6c5cde4',1,'dal.Dal.UpdateBalance()']]]
+  ['withdrawcash_0',['withdrawCash',['../interfacemodel_1_1_i_customer_model.html#a546f1debc99b7905a3f47e514d8b0c76',1,'model.ICustomerModel.withdrawCash()'],['../classmodel_1_1_customer_model.html#a20521d743ea2f60ebb3c9d26f8e12366',1,'model.CustomerModel.withdrawCash()']]],
+  ['write_1',['Write',['../interface_i_console.html#a998a7ad3f043869e79232261ac8c92b7',1,'IConsole.Write()'],['../class_console_wrapper.html#ae6baa694e57342689577ff6d7b67acd3',1,'ConsoleWrapper.Write()']]],
+  ['writeline_2',['WriteLine',['../interface_i_console.html#aea6ac1f7b23a6384c571033300f9d74e',1,'IConsole.WriteLine()'],['../class_console_wrapper.html#af02e338a16a7b64a9d7225cfa660af73',1,'ConsoleWrapper.WriteLine()']]]
 ];

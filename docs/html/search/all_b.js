@@ -1,5 +1,6 @@
 var searchData=
 [
-  ['searchaccount_0',['searchAccount',['../interfacemodel_1_1_i_admin_model.html#a7ca8d4c057b0b92ca734e6161294b2cc',1,'model.IAdminModel.searchAccount()'],['../classmodel_1_1_admin_model.html#a3e11824342fba4e103c1a55f74d0d7f2',1,'model.AdminModel.searchAccount()']]],
-  ['status_1',['Status',['../classmodel_1_1_customer_model_1_1_account.html#ad397a8dde3cacbbf46f793bc5ccaecc3',1,'model::CustomerModel::Account']]]
+  ['updateaccount_0',['UpdateAccount',['../interfacedal_1_1_i_dal.html#a5626ace293208e52c1688426cdeb6a13',1,'dal.IDal.UpdateAccount()'],['../classdal_1_1_dal.html#a0a3f04f65ca31fbddecb45436ce00612',1,'dal.Dal.UpdateAccount()']]],
+  ['updateaccount_1',['updateAccount',['../interfacemodel_1_1_i_admin_model.html#a268517e7c18774ca2d0eb9d22caeaca3',1,'model.IAdminModel.updateAccount()'],['../classmodel_1_1_admin_model.html#a40786ae9d17aa63a646d07440ce61eb2',1,'model.AdminModel.updateAccount()']]],
+  ['updatebalance_2',['UpdateBalance',['../interfacedal_1_1_i_dal.html#a1ebdc7c5e470d2e9eb4c55ac8718c969',1,'dal.IDal.UpdateBalance()'],['../classdal_1_1_dal.html#ad58a87de5da65337464069dad6c5cde4',1,'dal.Dal.UpdateBalance()']]]
 ];

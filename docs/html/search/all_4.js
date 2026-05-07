@@ -1,12 +1,9 @@
 var searchData=
 [
-  ['dal_0',['Dal',['../classdal_1_1_dal.html',1,'dal']]],
-  ['dal_1',['dal',['../namespacedal.html',1,'']]],
-  ['dal_2eassemblyinfo_2ecs_2',['dal.AssemblyInfo.cs',['../_debug_2net10_80_2dal_8_assembly_info_8cs.html',1,'(Global Namespace)'],['../_release_2net10_80_2dal_8_assembly_info_8cs.html',1,'(Global Namespace)']]],
-  ['dal_2ecs_3',['dal.cs',['../dal_8cs.html',1,'']]],
-  ['dal_2eglobalusings_2eg_2ecs_4',['dal.GlobalUsings.g.cs',['../_debug_2net10_80_2dal_8_global_usings_8g_8cs.html',1,'(Global Namespace)'],['../_release_2net10_80_2dal_8_global_usings_8g_8cs.html',1,'(Global Namespace)']]],
-  ['deleteaccount_5',['DeleteAccount',['../interfacedal_1_1_i_dal.html#ad3c916ad0267b19fc4663cc3027b7c49',1,'dal.IDal.DeleteAccount()'],['../classdal_1_1_dal.html#a6598882d33bd37e11afb95cad85081eb',1,'dal.Dal.DeleteAccount()']]],
-  ['deleteaccount_6',['deleteAccount',['../interfacemodel_1_1_i_admin_model.html#aeaaa6e7f2ea7c8782fc639874271ea65',1,'model.IAdminModel.deleteAccount()'],['../classmodel_1_1_admin_model.html#a4c5f4f815aeb74fdd7ce52057a967d26',1,'model.AdminModel.deleteAccount()']]],
-  ['depositcash_7',['depositCash',['../interfacemodel_1_1_i_customer_model.html#ab4fef3a95389143eda001de1fbd01275',1,'model.ICustomerModel.depositCash()'],['../classmodel_1_1_customer_model.html#a560403ae4a8bd47bb799243b1d24db20',1,'model.CustomerModel.depositCash()']]],
-  ['displaybalance_8',['displayBalance',['../interfacemodel_1_1_i_customer_model.html#aa4ff20619acdddc026b0bf3c8882deb2',1,'model.ICustomerModel.displayBalance()'],['../classmodel_1_1_customer_model.html#a9dd0d5477035f0ea99f72fedaa207fea',1,'model.CustomerModel.displayBalance()']]]
+  ['getall_0',['GetAll',['../interfacedal_1_1_i_dal.html#a69a17834e781db3806cfd935c127be88',1,'dal.IDal.GetAll()'],['../classdal_1_1_dal.html#ae287cd1f3469a80a210dd108b370cea5',1,'dal.Dal.GetAll()']]],
+  ['getcustaccount_1',['GetCustAccount',['../interfacedal_1_1_i_dal.html#a264e709f0cc0db4d07f606ead12cc6fd',1,'dal.IDal.GetCustAccount()'],['../classdal_1_1_dal.html#ace4d27df6425a259826bd1e159b649be',1,'dal.Dal.GetCustAccount()']]],
+  ['getcustaccountbyid_2',['GetCustAccountByID',['../interfacedal_1_1_i_dal.html#aa7848f98a08423979d86c2c7b99136f3',1,'dal.IDal.GetCustAccountByID()'],['../classdal_1_1_dal.html#a1ce36593f365115a0e87d76f39038371',1,'dal.Dal.GetCustAccountByID()']]],
+  ['getlogininfo_3',['GetLoginInfo',['../interfacedal_1_1_i_dal.html#ac903bf234a9e566ea1e73aeeed2741cd',1,'dal.IDal.GetLoginInfo()'],['../classdal_1_1_dal.html#a207c244f41e7582670fe972010de450c',1,'dal.Dal.GetLoginInfo()']]],
+  ['getusernames_4',['GetUsernames',['../interfacedal_1_1_i_dal.html#afcb2bad8a603aaeaa869b8bd33742088',1,'dal.IDal.GetUsernames()'],['../classdal_1_1_dal.html#af011444380185d5f2343acd0f71feb6e',1,'dal.Dal.GetUsernames()']]],
+  ['getusertype_5',['GetUserType',['../interfacedal_1_1_i_dal.html#a3fd6d49fe9c209726970bdd870245af8',1,'dal.IDal.GetUserType()'],['../classdal_1_1_dal.html#aedc7fc6ea4384df48708ce36fe6345b5',1,'dal.Dal.GetUserType()'],['../interfacemodel_1_1_i_login_model.html#acf140a5b29140634ea97c29289ff1320',1,'model.ILoginModel.GetUserType()'],['../classmodel_1_1_login_model.html#aa79e50fd8c72288667bfa670b69d040b',1,'model.LoginModel.GetUserType()']]]
 ];
