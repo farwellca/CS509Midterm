@@ -1,10 +1,8 @@
-﻿using System.Transactions;
-using model;
-using dal;
-using System.ComponentModel.Design;
+﻿using System.ComponentModel.Design;
+using System.Transactions;
 using menu;
 
-class ATM
+public class ATM
 {
     public static void Main()
     {
