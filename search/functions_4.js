@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['example_0',['example',['../classExample__Test.html#a22a62b12c65fd5e43b6eadaabb21ebb0',1,'Example_Test::example()'],['../classInclude__Test.html#aa286655e8f7f6a8ad203ef5fd8548b81',1,'Include_Test::example()'],['../classTag.html#acc641ffae34e2c4c03a6edf0a513be28',1,'Tag::example()']]]
+  ['login_0',['Login',['../interfacemodel_1_1ILoginModel.html#af82a0dd7f277c0502a8e320b7e88a1d6',1,'model.ILoginModel.Login()'],['../classmodel_1_1LoginModel.html#a4028064b0933a50531789cd9622b2ebf',1,'model.LoginModel.Login(string username, string pin)']]],
+  ['loginmodel_1',['LoginModel',['../classmodel_1_1LoginModel.html#ae61f9440fd450f1562055ab67367b264',1,'model::LoginModel']]]
 ];

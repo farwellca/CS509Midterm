@@ -1,9 +1,6 @@
 var searchData=
 [
-  ['getall_0',['GetAll',['../interfacedal_1_1IDal.html#a69a17834e781db3806cfd935c127be88',1,'dal.IDal.GetAll()'],['../classdal_1_1Dal.html#ae287cd1f3469a80a210dd108b370cea5',1,'dal.Dal.GetAll()']]],
-  ['getcustaccount_1',['GetCustAccount',['../interfacedal_1_1IDal.html#a264e709f0cc0db4d07f606ead12cc6fd',1,'dal.IDal.GetCustAccount()'],['../classdal_1_1Dal.html#ace4d27df6425a259826bd1e159b649be',1,'dal.Dal.GetCustAccount()']]],
-  ['getcustaccountbyid_2',['GetCustAccountByID',['../interfacedal_1_1IDal.html#aa7848f98a08423979d86c2c7b99136f3',1,'dal.IDal.GetCustAccountByID()'],['../classdal_1_1Dal.html#a1ce36593f365115a0e87d76f39038371',1,'dal.Dal.GetCustAccountByID()']]],
-  ['getlogininfo_3',['GetLoginInfo',['../interfacedal_1_1IDal.html#ac903bf234a9e566ea1e73aeeed2741cd',1,'dal.IDal.GetLoginInfo()'],['../classdal_1_1Dal.html#a207c244f41e7582670fe972010de450c',1,'dal.Dal.GetLoginInfo()']]],
-  ['getusernames_4',['GetUsernames',['../interfacedal_1_1IDal.html#afcb2bad8a603aaeaa869b8bd33742088',1,'dal.IDal.GetUsernames()'],['../classdal_1_1Dal.html#af011444380185d5f2343acd0f71feb6e',1,'dal.Dal.GetUsernames()']]],
-  ['getusertype_5',['GetUserType',['../interfacedal_1_1IDal.html#a3fd6d49fe9c209726970bdd870245af8',1,'dal.IDal.GetUserType()'],['../classdal_1_1Dal.html#aedc7fc6ea4384df48708ce36fe6345b5',1,'dal.Dal.GetUserType()'],['../interfacemodel_1_1ILoginModel.html#acf140a5b29140634ea97c29289ff1320',1,'model.ILoginModel.GetUserType()'],['../classmodel_1_1LoginModel.html#aa79e50fd8c72288667bfa670b69d040b',1,'model.LoginModel.GetUserType()']]]
+  ['readkey_0',['ReadKey',['../interfaceIConsole.html#a1d2ab06dcc60339433b18f8f3e494c34',1,'IConsole.ReadKey()'],['../classConsoleWrapper.html#ad0ad66b847f122d427715af48a8f6774',1,'ConsoleWrapper.ReadKey()']]],
+  ['readline_1',['ReadLine',['../interfaceIConsole.html#a9fbc511ef113c9d8df2f8c8d3b2835ee',1,'IConsole.ReadLine()'],['../classConsoleWrapper.html#a91edb51121cfe97dc265a00481c53210',1,'ConsoleWrapper.ReadLine()']]],
+  ['run_2',['Run',['../classmenu_1_1Menu.html#a5fc5596395b55ec53159ce8bcb8c3764',1,'menu::Menu']]]
 ];

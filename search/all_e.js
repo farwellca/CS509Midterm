@@ -1,8 +1,6 @@
 var searchData=
 [
-  ['object_0',['Object',['../structObject.html',1,'Object'],['../manual_8c.html#ab1287b6141419421dc5c14b9f7756b0a',1,'Object():&#160;manual.c']]],
-  ['objref_1',['objRef',['../structObject.html#a71225073d06a793b9a6ea9263ed37b12',1,'Object']]],
-  ['objunref_2',['objUnref',['../structObject.html#a924ee0cecc906d148022b3f0d6325cfb',1,'Object']]],
-  ['open_3',['open',['../structcmd_8h.html#a2c4414339f388561554c2deab11a1a07',1,'structcmd.h']]],
-  ['overload_5ftest_4',['Overload_Test',['../classOverload__Test.html',1,'']]]
+  ['updateaccount_0',['UpdateAccount',['../interfacedal_1_1_i_dal.html#a5626ace293208e52c1688426cdeb6a13',1,'dal.IDal.UpdateAccount()'],['../classdal_1_1_dal.html#a0a3f04f65ca31fbddecb45436ce00612',1,'dal.Dal.UpdateAccount()']]],
+  ['updateaccount_1',['updateAccount',['../interfacemodel_1_1_i_admin_model.html#a268517e7c18774ca2d0eb9d22caeaca3',1,'model.IAdminModel.updateAccount()'],['../classmodel_1_1_admin_model.html#a40786ae9d17aa63a646d07440ce61eb2',1,'model.AdminModel.updateAccount()']]],
+  ['updatebalance_2',['UpdateBalance',['../interfacedal_1_1_i_dal.html#a1ebdc7c5e470d2e9eb4c55ac8718c969',1,'dal.IDal.UpdateBalance()'],['../classdal_1_1_dal.html#ad58a87de5da65337464069dad6c5cde4',1,'dal.Dal.UpdateBalance()']]]
 ];

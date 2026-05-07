@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['b_0',['B',['../classB.html',1,'']]]
+  ['consolewrapper_0',['ConsoleWrapper',['../classConsoleWrapper.html',1,'']]],
+  ['customermodel_1',['CustomerModel',['../classmodel_1_1CustomerModel.html',1,'model']]]
 ];
