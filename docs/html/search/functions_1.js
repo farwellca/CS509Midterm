@@ -1,7 +1,9 @@
 var searchData=
 [
-  ['deleteaccount_0',['DeleteAccount',['../interfacedal_1_1_i_dal.html#ad3c916ad0267b19fc4663cc3027b7c49',1,'dal.IDal.DeleteAccount()'],['../classdal_1_1_dal.html#a6598882d33bd37e11afb95cad85081eb',1,'dal.Dal.DeleteAccount()']]],
-  ['deleteaccount_1',['deleteAccount',['../interfacemodel_1_1_i_admin_model.html#aeaaa6e7f2ea7c8782fc639874271ea65',1,'model.IAdminModel.deleteAccount()'],['../classmodel_1_1_admin_model.html#a4c5f4f815aeb74fdd7ce52057a967d26',1,'model.AdminModel.deleteAccount()']]],
-  ['depositcash_2',['depositCash',['../interfacemodel_1_1_i_customer_model.html#ab4fef3a95389143eda001de1fbd01275',1,'model.ICustomerModel.depositCash()'],['../classmodel_1_1_customer_model.html#a560403ae4a8bd47bb799243b1d24db20',1,'model.CustomerModel.depositCash()']]],
-  ['displaybalance_3',['displayBalance',['../interfacemodel_1_1_i_customer_model.html#aa4ff20619acdddc026b0bf3c8882deb2',1,'model.ICustomerModel.displayBalance()'],['../classmodel_1_1_customer_model.html#a9dd0d5477035f0ea99f72fedaa207fea',1,'model.CustomerModel.displayBalance()']]]
+  ['createaccount_0',['CreateAccount',['../interfacedal_1_1_i_dal.html#afa5b72c3ca5578760cac7309c809eebc',1,'dal.IDal.CreateAccount()'],['../classdal_1_1_dal.html#a9287a5cd9c6143a15cf594dc086bf504',1,'dal.Dal.CreateAccount()']]],
+  ['createaccount_1',['createAccount',['../interfacemodel_1_1_i_admin_model.html#a7f5caedadc98ddb0e7540754c1ce6b28',1,'model.IAdminModel.createAccount()'],['../classmodel_1_1_admin_model.html#a722b06c770b5bcea8e46ada3f3983339',1,'model.AdminModel.createAccount()']]],
+  ['createaccount_5fblank_5fusername_5fthrows_5fargument_5fexception_2',['createAccount_blank_username_throws_argument_exception',['../class_tests_1_1_admin_test.html#a6f17804aa4882affa416fd836d95c92c',1,'Tests::AdminTest']]],
+  ['createaccount_5finvalid_5fpin_5fthrows_5fargument_5fexception_3',['createAccount_invalid_pin_throws_argument_exception',['../class_tests_1_1_admin_test.html#af23c3585ec734dd5330974956beb7f86',1,'Tests::AdminTest']]],
+  ['createaccount_5fusername_5ftaken_5fthrows_5fargument_5fexception_4',['createAccount_username_taken_throws_argument_exception',['../class_tests_1_1_admin_test.html#aae4c2f20f453424ec64a2e05fe57adb8',1,'Tests::AdminTest']]],
+  ['customermodel_5',['CustomerModel',['../classmodel_1_1_customer_model.html#a287c1d94788fe449e9390ad28a226cb0',1,'model::CustomerModel']]]
 ];

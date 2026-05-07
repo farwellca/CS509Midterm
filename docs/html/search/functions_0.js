@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['createaccount_0',['CreateAccount',['../interfacedal_1_1_i_dal.html#afa5b72c3ca5578760cac7309c809eebc',1,'dal.IDal.CreateAccount()'],['../classdal_1_1_dal.html#a9287a5cd9c6143a15cf594dc086bf504',1,'dal.Dal.CreateAccount()']]],
-  ['createaccount_1',['createAccount',['../interfacemodel_1_1_i_admin_model.html#a7f5caedadc98ddb0e7540754c1ce6b28',1,'model.IAdminModel.createAccount()'],['../classmodel_1_1_admin_model.html#a722b06c770b5bcea8e46ada3f3983339',1,'model.AdminModel.createAccount()']]]
+  ['adminmodel_0',['AdminModel',['../classmodel_1_1_admin_model.html#a7da3b44dd69d3349b823a2ffd45b70ab',1,'model::AdminModel']]]
 ];

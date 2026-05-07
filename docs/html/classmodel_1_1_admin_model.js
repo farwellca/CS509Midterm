@@ -1,5 +1,6 @@
 var classmodel_1_1_admin_model =
 [
+    [ "AdminModel", "classmodel_1_1_admin_model.html#a7da3b44dd69d3349b823a2ffd45b70ab", null ],
     [ "createAccount", "classmodel_1_1_admin_model.html#a722b06c770b5bcea8e46ada3f3983339", null ],
     [ "deleteAccount", "classmodel_1_1_admin_model.html#a4c5f4f815aeb74fdd7ce52057a967d26", null ],
     [ "searchAccount", "classmodel_1_1_admin_model.html#a3e11824342fba4e103c1a55f74d0d7f2", null ],
