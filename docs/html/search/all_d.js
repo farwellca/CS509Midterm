@@ -1,7 +1,6 @@
 var searchData=
 [
-  ['test1_0',['Test1',['../class_tests_1_1_program_test.html#a62fd51760cbbf62c083225b68ad73bd9',1,'Tests::ProgramTest']]],
-  ['tests_1',['Tests',['../namespace_tests.html',1,'']]],
-  ['tests_2eassemblyinfo_2ecs_2',['Tests.AssemblyInfo.cs',['../_debug_2net10_80_2_tests_8_assembly_info_8cs.html',1,'(Global Namespace)'],['../_release_2net10_80_2_tests_8_assembly_info_8cs.html',1,'(Global Namespace)']]],
-  ['tests_2eglobalusings_2eg_2ecs_3',['Tests.GlobalUsings.g.cs',['../_debug_2net10_80_2_tests_8_global_usings_8g_8cs.html',1,'(Global Namespace)'],['../_release_2net10_80_2_tests_8_global_usings_8g_8cs.html',1,'(Global Namespace)']]]
+  ['withdrawcash_0',['withdrawCash',['../interfacemodel_1_1_i_customer_model.html#a546f1debc99b7905a3f47e514d8b0c76',1,'model.ICustomerModel.withdrawCash()'],['../classmodel_1_1_customer_model.html#a20521d743ea2f60ebb3c9d26f8e12366',1,'model.CustomerModel.withdrawCash()']]],
+  ['write_1',['Write',['../interface_i_console.html#a998a7ad3f043869e79232261ac8c92b7',1,'IConsole.Write()'],['../class_console_wrapper.html#ae6baa694e57342689577ff6d7b67acd3',1,'ConsoleWrapper.Write()']]],
+  ['writeline_2',['WriteLine',['../interface_i_console.html#aea6ac1f7b23a6384c571033300f9d74e',1,'IConsole.WriteLine()'],['../class_console_wrapper.html#af02e338a16a7b64a9d7225cfa660af73',1,'ConsoleWrapper.WriteLine()']]]
 ];

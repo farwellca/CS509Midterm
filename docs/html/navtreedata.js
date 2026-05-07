@@ -25,7 +25,6 @@
 var NAVTREE =
 [
   [ "CS509 Final", "index.html", [
-    [ "CS509Midterm", "md__r_e_a_d_m_e.html", null ],
     [ "Namespaces", "namespaces.html", [
       [ "Namespace List", "namespaces.html", "namespaces_dup" ]
     ] ],
@@ -48,8 +47,7 @@ var NAVTREE =
 
 var NAVTREEINDEX =
 [
-"_admin_model_8cs.html",
-"interfacemodel_1_1_i_login_model.html#acf140a5b29140634ea97c29289ff1320"
+"_admin_model_8cs.html"
 ];
 
 const SYNCONMSG = 'click to disable panel synchronization';

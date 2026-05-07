@@ -15,14 +15,7 @@ var annotated_dup =
       [ "ILoginModel", "interfacemodel_1_1_i_login_model.html", "interfacemodel_1_1_i_login_model" ],
       [ "LoginModel", "classmodel_1_1_login_model.html", "classmodel_1_1_login_model" ]
     ] ],
-    [ "Tests", "namespace_tests.html", [
-      [ "AdminTest", "class_tests_1_1_admin_test.html", "class_tests_1_1_admin_test" ],
-      [ "CustomerTest", "class_tests_1_1_customer_test.html", "class_tests_1_1_customer_test" ],
-      [ "LoginTest", "class_tests_1_1_login_test.html", "class_tests_1_1_login_test" ],
-      [ "ProgramTest", "class_tests_1_1_program_test.html", "class_tests_1_1_program_test" ]
-    ] ],
     [ "ATM", "class_a_t_m.html", null ],
-    [ "ConsoleTestWrapper", "class_console_test_wrapper.html", "class_console_test_wrapper" ],
     [ "ConsoleWrapper", "class_console_wrapper.html", "class_console_wrapper" ],
     [ "IConsole", "interface_i_console.html", "interface_i_console" ]
 ];
