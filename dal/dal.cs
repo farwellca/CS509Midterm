@@ -2,6 +2,7 @@
 using System.Net;
 using System.Net.NetworkInformation;
 using MySql.Data.MySqlClient;
+using System.Diagnostics.CodeAnalysis;
 
 namespace dal;
 
@@ -76,6 +77,7 @@ public interface IDal
     int UpdateAccount(DataTable dt);
 }
 
+[ExcludeFromCodeCoverage(Justification = "Dal connection is not unit testable")]
 public class Dal : IDal
 {
     private const string connectionString = "server=host.docker.internal;port=3333;uid=root;pwd=a;database=atm";

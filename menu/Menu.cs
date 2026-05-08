@@ -1,4 +1,5 @@
-﻿namespace menu;
+﻿using System.Diagnostics.CodeAnalysis;
+namespace menu;
 
 using model;
 using dal;
@@ -6,20 +7,21 @@ using dal;
 /// <summary>
 /// Handles UI for login and menus.
 /// </summary>
+[ExcludeFromCodeCoverage(Justification = "only handles ui")]
 public class Menu
 {
     private readonly IAdminModel _adminModel;
     private readonly ICustomerModel _customerModel;
     private readonly ILoginModel _loginModel;
-    private readonly IConsole console;
+    private readonly IConsole _console;
 
     public Menu()
     {
         Dal dal = new Dal();
 
-        console = new ConsoleWrapper();
-        _adminModel = new AdminModel(dal, console);
-        _customerModel = new CustomerModel(dal, console);
+        _console = new ConsoleWrapper();
+        _adminModel = new AdminModel(dal, _console);
+        _customerModel = new CustomerModel(dal, _console);
         _loginModel = new LoginModel(dal);
     }
 
@@ -36,15 +38,15 @@ public class Menu
             try
             {
 
-                Console.Write("Enter login: ");
-                string? username = Console.ReadLine();
+                _console.Write("Enter login: ");
+                string? username = _console.ReadLine();
 
-                Console.Write("Enter Pin code: ");
-                string? pin = Console.ReadLine();
+                _console.Write("Enter Pin code: ");
+                string? pin = _console.ReadLine();
 
                 if (_loginModel.Login(username, pin))
                 {
-                    Console.WriteLine("Success!");
+                    _console.WriteLine("Success!");
 
                     switch (_loginModel.GetUserType(username, pin))
                     {
@@ -65,7 +67,7 @@ public class Menu
             }
             catch (Exception e)
             {
-                Console.WriteLine(e.Message);
+                _console.WriteLine(e.Message);
             }
         }
     }
@@ -80,9 +82,9 @@ public class Menu
         {
             try
             {
-                console.WriteLine("\n1--Withdraw Cash\n2--Deposit Cash\n3--Display Balance\n4--Exit");
+                _console.WriteLine("\n1--Withdraw Cash\n2--Deposit Cash\n3--Display Balance\n4--Exit");
 
-                string? input = console.ReadLine();
+                string? input = _console.ReadLine();
 
                 switch (input)
                 {
@@ -97,18 +99,18 @@ public class Menu
                         break;
                     case "4":
                         Console.Clear();
-                        console.WriteLine("Have a nice day.");
+                        _console.WriteLine("Have a nice day.");
                         done = true;
                         break;
                     default:
                         Console.Clear();
-                        console.WriteLine("Invalid input. Please try again.");
+                        _console.WriteLine("Invalid input. Please try again.");
                         break;
                 }
             }
             catch (Exception e)
             {
-                console.WriteLine(e.Message);
+                _console.WriteLine(e.Message);
             }
         }
     }
@@ -123,9 +125,9 @@ public class Menu
         {
             try
             {
-                console.WriteLine("\n1--Create New Account\n2--Delete Existing Accont\n3--Update Account Information\n4--Search for Account\n5--Exit");
+                _console.WriteLine("\n1--Create New Account\n2--Delete Existing Accont\n3--Update Account Information\n4--Search for Account\n5--Exit");
 
-                string? input = console.ReadLine();
+                string? input = _console.ReadLine();
 
                 switch (input)
                 {
@@ -143,18 +145,18 @@ public class Menu
                         break;
                     case "5":
                         Console.Clear();
-                        console.WriteLine("Have a nice day.");
+                        _console.WriteLine("Have a nice day.");
                         done = true;
                         break;
                     default:
                         Console.Clear();
-                        console.WriteLine("Invalid input. Please try again.");
+                        _console.WriteLine("Invalid input. Please try again.");
                         break;
                 }
             }
             catch (Exception e)
             {
-                console.WriteLine(e.Message);
+                _console.WriteLine(e.Message);
             }
         }
     }

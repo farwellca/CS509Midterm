@@ -1,3 +1,5 @@
+using System.Diagnostics.CodeAnalysis;
+
 /// <summary>
 /// Interface wrapping console methods, needed for testing.
 /// </summary>
@@ -12,6 +14,7 @@ public interface IConsole
 /// <summary>
 /// Executes normal Console read and write methods for deployment.
 /// </summary>
+[ExcludeFromCodeCoverage]
 public class ConsoleWrapper : IConsole
 {
     /// <summary>
